@@ -35,14 +35,13 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        maxLength: 20,
         required: true
     },
     profilePicture: {
         type: String,
         required: true
     },
-    likeProfile: {
+    likesProfile: {
         type: [String]
     },
     followers: {

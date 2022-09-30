@@ -18,9 +18,20 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
+// Import des modules de routage. //
+
+const user_router = require('./routes/users')
+const post_router = require('./routes/posts')
+const comment_router = require('./routes/comments')
+
+
 // Mise en place du routage. //
 
 app.get('/', (req, res) => res.send('You are connected!'))
+
+app.use('/users', user_router)  
+app.use('/posts', post_router)  
+app.use('/comments', comment_router)  
 
 app.get('*', (req, res) => res.status(501).send('An error has occured !'))
 
