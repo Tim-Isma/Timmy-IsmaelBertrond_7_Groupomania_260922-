@@ -21,7 +21,10 @@ router.patch('/:id', postControllers.updatePosts)
 
 router.delete('/:id', postControllers.deletePosts)
 
-router.post('/like/:id', postControllers.createLikeAndDislike)
+
+//////////////////////////////////////////////////////////
+
+//router.post('/like/:id', postControllers.createLikeAndDislike)
 
 
 module.exports = router

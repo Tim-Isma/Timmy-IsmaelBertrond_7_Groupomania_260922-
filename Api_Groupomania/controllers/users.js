@@ -59,7 +59,7 @@ exports.createUser = async (req, res) => {
         const userObject = req.body
         const user = new User ({
             ...userObject,
-            profilePicture: "fhdkjfhdsk" //`${req.protocol}://${req.get('host')}/images/profils/${req.file.filename}`,
+            profilePicture: "images" //`${req.protocol}://${req.get('host')}/images/profils/${req.file.filename}`,
         })
         
         await user.save()
@@ -106,8 +106,8 @@ User.deleteOne({ _id: req.params.id })
     .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 }
 
-////////////////////////////////////////////
-
+///////////////////////////////////////////////////
+/*
 exports.like = async (req, res) => {
 
         // Vérification de la présence du paramètre 'id' dans la requête.
@@ -222,3 +222,4 @@ exports.unfollow = async (req, res) => {
         return res.status(500).json({ mesage: 'Data Error', error: err })
     }
 }
+*/

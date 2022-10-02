@@ -24,6 +24,8 @@ const user_router = require('./routes/users')
 const post_router = require('./routes/posts')
 const comment_router = require('./routes/comments')
 
+const auth_router = require('./routes/auth')
+
 
 // Mise en place du routage. //
 
@@ -31,7 +33,9 @@ app.get('/', (req, res) => res.send('You are connected!'))
 
 app.use('/users', user_router)  
 app.use('/posts', post_router)  
-app.use('/comments', comment_router)  
+app.use('/comments', comment_router) 
+
+app.use('/auth', auth_router)
 
 app.get('*', (req, res) => res.status(501).send('An error has occured !'))
 

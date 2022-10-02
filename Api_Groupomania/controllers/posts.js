@@ -95,6 +95,9 @@ exports.deletePosts = (req, res) => {
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
 }
 
+
+/////////////////////////////////////////////////////////
+/*
 exports.createLikeAndDislike = async (req, res) => {
     let like = req.body.like
 
@@ -154,3 +157,4 @@ exports.createLikeAndDislike = async (req, res) => {
     //    return res.status(500).json({ mesage: 'Data Error', error: err })
    // }
 }
+*/

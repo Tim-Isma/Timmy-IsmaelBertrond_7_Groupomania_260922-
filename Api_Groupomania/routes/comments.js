@@ -21,7 +21,9 @@ router.patch('/:id', commentControllers.updateComments)
 
 router.delete('/:id', commentControllers.deleteComments)
 
-//router.patch('/like/:id', commentControllers.addLikeComment)
+//////////////////////////////////////////////////////////
+
+//router.post('/like/:id', postControllers.createLikeAndDislike)
 
 
 module.exports = router

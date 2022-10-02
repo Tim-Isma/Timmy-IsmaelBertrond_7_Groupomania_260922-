@@ -23,13 +23,13 @@ router.patch('/:id', userControllers.updateUser)
 
 router.delete('/:id', userControllers.deleteUser)
 
-router.patch('/like/:id', userControllers.like)
+//router.patch('/like/:id', userControllers.like)
 
-router.patch('/unlike/:id', userControllers.unlike)
+//router.patch('/unlike/:id', userControllers.unlike)
 
-router.patch('/follow/:id', userControllers.follow)
+//router.patch('/follow/:id', userControllers.follow)
 
-router.patch('/unfollow/:id', userControllers.unfollow)
+//router.patch('/unfollow/:id', userControllers.unfollow)
 
 
 module.exports = router
