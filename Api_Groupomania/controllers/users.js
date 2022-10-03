@@ -155,7 +155,10 @@ exports.unlike = async (req, res) => {
         return res.status(500).json({ mesage: 'Data Error', error: err })
     }
 }
+*/
 
+
+/*
 exports.follow = async (req, res) => {
 
     // Vérification de la présence du paramètre 'id' dans la requête.
@@ -179,7 +182,7 @@ exports.follow = async (req, res) => {
         // Add to the following list
         await User.findByIdAndUpdate(
             req.body.idToFollow,
-            { $addToSet: { follower: req.params.id } },
+            { $addToSet: { followers: req.params.id } },
             { new: true, upsert: true }, // new: true == renvoie le document modifié / upsert: true == aucun document trouvé, insére un nouveau document.
             (err, data) => {
                 if (err) return res.status(400).json(err)  // ???
@@ -212,7 +215,7 @@ exports.unfollow = async (req, res) => {
         // Remove to the following list
         await User.findByIdAndUpdate(
             req.body.idToUnfollow,
-            { $pull: { follower: req.params.id }},
+            { $pull: { followers: req.params.id }},
             { new: true, upsert: true },
             (err, data) => {
                 if (err) return res.status(400).json(err)
@@ -223,3 +226,69 @@ exports.unfollow = async (req, res) => {
     }
 }
 */
+
+exports.follow = async (req, res) => {
+
+    if (!ObjectID.isValid(req.params.id)) {
+
+        return res.status(400).json({ message: `Follower ID unknown: ${req.params.id}` }) 
+
+    } else if (!ObjectID.isValid(req.body.userId)){
+
+        return res.status(400).json({ message: `Following ID unknown: ${req.body.userId}` }) 
+
+    } else if (req.params.id === req.body.userId) {
+        
+        return res.status(403).json({ message: `You can't follow yourself`})
+
+    } else {
+
+        try {
+            const user = await User.findById(req.params.id)
+            const currentUser = await User.findById(req.body.userId)
+            if (!user.followers.includes(req.body.userId)) {
+                await user.updateOne({ $push: { followers: req.body.userId } })
+                await currentUser.updateOne({ $push: { following: req.params.id } })
+
+                return res.status(200).json({ message: 'You are following this user' }) 
+            } else {
+                return res.status(403).json({ message: 'You allready follow this user !'})
+            }
+        } catch (err) {
+            return res.status(500).json({ message: 'Data Error', error: err })
+        }
+    }
+}
+
+exports.unfollow = async (req, res) => {
+
+    if (!ObjectID.isValid(req.params.id)) {
+
+        return res.status(400).json({ message: `Follower ID unknown: ${req.params.id}` }) 
+
+    } else if (!ObjectID.isValid(req.body.userId)){
+
+        return res.status(400).json({ message: `Following ID unknown: ${req.body.userId}` }) 
+
+    } else if (req.params.id === req.body.userId) {
+        
+        return res.status(403).json({ message: `You can't follow yourself`})
+
+    } else {
+        
+        try {
+            const user = await User.findById(req.params.id)
+            const currentUser = await User.findById(req.body.userId)
+            if (user.followers.includes(req.body.userId)) {
+                await user.updateOne({ $pull: { followers: req.body.userId } })
+                await currentUser.updateOne({ $pull: { following: req.params.id } })
+
+                return res.status(200).json({ message: 'You are not following this user' }) 
+            } else {
+                return res.status(403).json({ message: 'You allready follow this user !'})
+            }
+        } catch (err) {
+            return res.status(500).json({ message: 'Data Error', error: err })
+        }
+    }
+}

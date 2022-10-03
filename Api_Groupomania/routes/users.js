@@ -29,9 +29,9 @@ router.delete('/:id', checkTokenMiddleware, userControllers.deleteUser)
 
 //router.patch('/unlike/:id', userControllers.unlike)
 
-//router.patch('/follow/:id', userControllers.follow)
+router.put('/follow/:id', userControllers.follow)
 
-//router.patch('/unfollow/:id', userControllers.unfollow)
+router.put('/unfollow/:id', userControllers.unfollow)
 
 
 module.exports = router
