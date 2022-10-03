@@ -3,6 +3,7 @@
 const express = require('express')
 const postControllers = require('../controllers/posts')
 
+const checkTokenMiddleware = require('../middlewares/checking_JsonWebToken')
 
 // Récupération du router d'express. //
 
@@ -15,11 +16,11 @@ router.get('/', postControllers.getAllPosts)
 
 router.get('/:id', postControllers.getOnePosts)
 
-router.put('/', postControllers.createPosts)
+router.put('/', checkTokenMiddleware, postControllers.createPosts)
 
-router.patch('/:id', postControllers.updatePosts)
+router.patch('/:id', checkTokenMiddleware, postControllers.updatePosts)
 
-router.delete('/:id', postControllers.deletePosts)
+router.delete('/:id', checkTokenMiddleware, postControllers.deletePosts)
 
 
 //////////////////////////////////////////////////////////

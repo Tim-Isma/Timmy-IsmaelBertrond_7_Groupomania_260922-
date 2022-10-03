@@ -3,6 +3,8 @@
 const express = require('express')
 const commentControllers = require('../controllers/comments')
 
+const checkTokenMiddleware = require('../middlewares/checking_JsonWebToken')
+
 
 // Récupération du router d'express. //
 
@@ -15,11 +17,11 @@ router.get('/', commentControllers.getAllComments)
 
 router.get('/:id', commentControllers.getOneComments)
 
-router.put('/', commentControllers.createComments)
+router.put('/', checkTokenMiddleware, commentControllers.createComments)
 
-router.patch('/:id', commentControllers.updateComments)
+router.patch('/:id', checkTokenMiddleware, commentControllers.updateComments)
 
-router.delete('/:id', commentControllers.deleteComments)
+router.delete('/:id', checkTokenMiddleware, commentControllers.deleteComments)
 
 //////////////////////////////////////////////////////////
 

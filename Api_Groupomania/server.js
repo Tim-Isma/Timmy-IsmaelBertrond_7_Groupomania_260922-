@@ -4,6 +4,8 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+//const checkTokenMiddleware = require('./middlewares/checking_JsonWebToken')
+
 // Initialisation de l'API. //
 
 const app = express()

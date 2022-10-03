@@ -3,6 +3,8 @@
 const express = require('express')
 const userControllers = require('../controllers/users')
 
+const checkTokenMiddleware = require('../middlewares/checking_JsonWebToken')
+
 
 // Récupération du router d'express. //
 
@@ -13,15 +15,15 @@ let router = express.Router()
 
 // Routage de la ressource user. //
 
-router.get('/', userControllers.getAllUsers)
+router.get('/', checkTokenMiddleware, userControllers.getAllUsers)
 
-router.get('/:id', userControllers.getOneUser)
+router.get('/:id', checkTokenMiddleware, userControllers.getOneUser)
 
 router.put('/', userControllers.createUser)
 
-router.patch('/:id', userControllers.updateUser)
+router.patch('/:id', checkTokenMiddleware, userControllers.updateUser)
 
-router.delete('/:id', userControllers.deleteUser)
+router.delete('/:id', checkTokenMiddleware, userControllers.deleteUser)
 
 //router.patch('/like/:id', userControllers.like)
 

@@ -59,9 +59,9 @@ exports.createUser = async (req, res) => {
         const userObject = req.body
         const user = new User ({
             ...userObject,
-            profilePicture: "images" //`${req.protocol}://${req.get('host')}/images/profils/${req.file.filename}`,
+            profilePicture: 'images' //`${req.protocol}://${req.get('host')}/images/profils/${req.file.filename}`,
         })
-        
+        console.log('vbvc')
         await user.save()
         return res.status(201).json({ message: 'User Created'})
 
