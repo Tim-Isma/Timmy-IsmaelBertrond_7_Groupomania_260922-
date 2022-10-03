@@ -47,29 +47,4 @@ exports.login =  async (req, res) => {
         res.status(500).json({ message: 'Login process failed', error: err })
     }
 }
-/*
-    User.findOne({email: email })
-        .then(user => {
-            
 
-            // Vérification du mot de passe.
-            bcrypt.compare(password, user.password) // Comparer le password qu'on reçoit au password contenu dans la BD.
-                .then(test => {
-                  
-
-                    // Génération et envoi du token // (// jwt.sign({payload}, secret, durée))
-                    const token = jwt.sign({
-                        id: user.id,
-                        name: user.name,
-                        firstName: user.firstName,
-                        email: user.email
-                    }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
-
-                    return res.json({ access_token: token})
-
-                })
-                .catch(err => res.status(500).json({ message: 'Login process failed', error: err }))
-        })
-        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
-}
-*/

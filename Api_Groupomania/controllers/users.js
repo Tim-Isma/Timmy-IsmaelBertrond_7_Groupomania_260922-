@@ -227,6 +227,71 @@ exports.unfollow = async (req, res) => {
 }
 */
 
+exports.like = async (req, res) => {
+
+    if (!ObjectID.isValid(req.params.id)) {
+
+        return res.status(400).json({ message: `Liker ID unknown: ${req.params.id}` }) 
+
+    } else if (!ObjectID.isValid(req.body.userId)){
+
+        return res.status(400).json({ message: `Liking ID unknown: ${req.body.userId}` }) 
+
+    } else if (req.params.id === req.body.userId) {
+        
+        return res.status(403).json({ message: `You can't like yourself`})
+
+    } else {
+        try {
+        
+            const user = await User.findById(req.params.id)
+    
+            if (!user.likesProfile.includes(req.body.userId)) {
+                await user.updateOne({ $push: { likesProfile: req.body.userId } })
+
+                return res.status(200).json({ message: 'You like this profile' }) 
+            } else {
+                return res.status(403).json({ message: 'You allready like this user !'})
+            }
+
+        } catch (err) {
+            return res.status(500).json({ message: 'Data Error', error: err })
+        }
+    }
+}
+
+exports.unlike = async (req, res) => {
+
+    if (!ObjectID.isValid(req.params.id)) {
+
+        return res.status(400).json({ message: `Liker ID unknown: ${req.params.id}` }) 
+
+    } else if (!ObjectID.isValid(req.body.userId)){
+
+        return res.status(400).json({ message: `Liking ID unknown: ${req.body.userId}` }) 
+
+    } else if (req.params.id === req.body.userId) {
+        
+        return res.status(403).json({ message: `You can't unlike yourself`})
+
+    } else {
+        try {
+            const user = await User.findById(req.params.id)
+
+            if (user.likesProfile.includes(req.body.userId)) {
+                await user.updateOne({ $pull: { likesProfile: req.body.userId } })
+
+                return res.status(200).json({ message: `You don't like this profile` }) 
+            } else {
+                return res.status(403).json({ message: 'You allready unlike this user !'})
+            }
+            
+        } catch (err) {
+            return res.status(500).json({ message: 'Data Error', error: err })
+        }
+    }
+}
+
 exports.follow = async (req, res) => {
 
     if (!ObjectID.isValid(req.params.id)) {

@@ -25,9 +25,9 @@ router.patch('/:id', checkTokenMiddleware, userControllers.updateUser)
 
 router.delete('/:id', checkTokenMiddleware, userControllers.deleteUser)
 
-//router.patch('/like/:id', userControllers.like)
+router.put('/like/:id', userControllers.like)
 
-//router.patch('/unlike/:id', userControllers.unlike)
+router.put('/unlike/:id', userControllers.unlike)
 
 router.put('/follow/:id', userControllers.follow)
 
