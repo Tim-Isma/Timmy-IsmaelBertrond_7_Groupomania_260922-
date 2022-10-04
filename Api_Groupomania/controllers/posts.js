@@ -97,64 +97,97 @@ exports.deletePosts = (req, res) => {
 
 
 /////////////////////////////////////////////////////////
-/*
-exports.createLikeAndDislike = async (req, res) => {
-    let like = req.body.like
 
-    //try {
-        switch (like) {
-            case 1: 
-                Post.updateOne({ _id: req.params.id}, 
+exports.like = async (req, res) => {
+    
+    if (!ObjectID.isValid(req.params.id)) {
+
+        return res.status(400).json({ message: `post ID unknown: ${req.params.id}` }) 
+
+    } else if (!ObjectID.isValid(req.body.userId)) {
+
+        return res.status(400).json({ message: `Liker ID unknown: ${req.body.userId}` }) 
+
+    } else {
+    
+        try {
+            
+            const post = await Post.findById(req.params.id)
+        
+            if (!post.userLiked.includes(req.body.userId)) {
+                await post.updateOne(
                 {
-                    $inc: { likes: 1 },
-                    $push: { usersLiked: req.body.userId}
+                    $inc: { likes: 1 }, 
+                    $push: { userLiked: req.body.userId} 
                 })
-            .then(() => res.status(201).json({ message: `J'aime !`}))
-            .catch(error => res.status(400).json({ error }));
+              
+                return res.status(200).json({ message: 'You like this post' }) 
+            }
 
-            break;
+            if (post.userLiked.includes(req.body.userId)) {
+                await post.updateOne(
+                {
+                    $inc: { likes: -1 }, 
+                    $pull: { userLiked: req.body.userId }
+                })
 
-            case -1: 
-                Post.updateOne({ _id: req.params.id }, 
-                    {
-                        $inc: { dislikes: 1 },
-                        $push: { usersDisliked: req.body.userId}
-                    })
-            .then(() => res.status(201).json({ message: `Je n'aime pas !`}))
-            .catch(error => res.status(400).json({ error }));
+                return res.status(200).json({ message: 'You unlike this post' })
+            }      
+        } catch (err) {
+            const {likes, userLiked} = req.body
 
-            break;
-
-            case 0:
-                Post.findOne({ _id: req.params.id })
-                    .then((post) => {
-                        if (post.usersLiked.includes(req.body.userId)) {
-                            Post.updateOne({ _id: req.params.id },
-                                {
-                                    $inc: { likes: -1 }, 
-                                    $pull: { usersLiked: req.body.userId } 
-                                })
-                            .then(() => res.status(201).json({ message: `Initialisation`}))
-                            .catch(error => res.status(400).json({ error }));
-                        }
-                        if (post.usersDisliked.includes(req.body.userId)) {
-                            Post.updateOne({ _id: req.params.id },
-                                {
-                                    $inc: { dislikes: -1 }, 
-                                    $pull: { usersDisliked: req.body.userId }
-                                })
-                            .then(() => res.status(201).json({ message: `Initialisation`}))
-                            .catch(error => res.status(400).json({ error }));
-                        }
-                    })
-                    .catch(error => res.status(404).json({ error }));
-            break;
-
-            default:
-                console.log(error);
+            if (!likes || !userLiked) {
+                return res.status(400).json({ message: 'Bad Request !'})
+            }
+           
+            return res.status(500).json({ message: 'Data Error', error: err })
         }
-   // } catch (err) {
-    //    return res.status(500).json({ mesage: 'Data Error', error: err })
-   // }
+    }
 }
-*/
+
+exports.dislike = async (req, res) => {
+    
+    if (!ObjectID.isValid(req.params.id)) {
+
+        return res.status(400).json({ message: `post ID unknown: ${req.params.id}` }) 
+
+    } else if (!ObjectID.isValid(req.body.userId)) {
+
+        return res.status(400).json({ message: `disliker ID unknown: ${req.body.userId}` }) 
+
+    } else {
+    
+        try {
+            
+            const post = await Post.findById(req.params.id)
+        
+            if (!post.userDisliked.includes(req.body.userId)) {
+                await post.updateOne(
+                {
+                    $inc: { dislikes: 1 }, 
+                    $push: { userDisliked: req.body.userId} 
+                })
+              
+                return res.status(200).json({ message: 'You dislike this post' }) 
+            }
+
+            if (post.userDisliked.includes(req.body.userId)) {
+                await post.updateOne(
+                {
+                    $inc: { dislikes: -1 }, 
+                    $pull: { userDisliked: req.body.userId }
+                })
+
+                return res.status(200).json({ message: 'You undislike this post' })
+            }      
+        } catch (err) {
+            const {dislikes, userDisliked} = req.body
+
+            if (!dislikes || !userDisliked) {
+                return res.status(400).json({ message: 'Bad Request !'})
+            }
+           
+            return res.status(500).json({ message: 'Data Error', error: err })
+        }
+    }
+}
