@@ -24,7 +24,7 @@ exports.login =  async (req, res) => {
         }
 
         // Vérification du mot de passe //
-        let checkingPassword = await bcrypt.compare(password, user.password) // Comparer le password qu'on reçoit au password contenu dans la BD.
+        let checkingPassword = await bcrypt.compare(password, user.password) // On compare le password qu'on reçoit dans notre requête au password contenu dans la BD.
         if(!checkingPassword) {
             return res.status(401).json({ message: 'Wrong password'})
         }

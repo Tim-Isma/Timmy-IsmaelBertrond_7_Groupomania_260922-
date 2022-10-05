@@ -25,7 +25,9 @@ router.delete('/:id', checkTokenMiddleware, commentControllers.deleteComments)
 
 //////////////////////////////////////////////////////////
 
-//router.post('/like/:id', postControllers.createLikeAndDislike)
+router.put('/like/:id', commentControllers.like)
+
+router.put('/dislike/:id', commentControllers.dislike)
 
 
 module.exports = router
