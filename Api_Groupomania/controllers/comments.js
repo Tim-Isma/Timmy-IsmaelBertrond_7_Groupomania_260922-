@@ -1,7 +1,7 @@
 // Import des modules //
 
 const Comment = require('../models/comment')
-
+const fs = require('fs')
 const ObjectID = require("mongoose").Types.ObjectId;
 
 // Routage de la ressource post //
@@ -47,7 +47,8 @@ exports.createComments = async (req, res) => {
         // Création du commentaire //
         const commentObject = req.body
         const commentCreate = new Comment ({
-            ...commentObject
+            ...commentObject,
+            picture: `${req.protocol}://${req.get('host')}/images/uploads/comments/${req.file.filename}`
         })
 
         await commentCreate.save()
@@ -72,6 +73,12 @@ exports.updateComments = async (req, res) => {
     }
    
     try {
+
+        const commentObject = req.file ? {
+            ...req.body,
+            picture: `${req.protocol}://${req.get('host')}/images/uploads/comments/${req.file.filename}`
+        } : {...req.body}
+
         // Recherche du commentaire et vérification //
         let comment = await Comment.findOne({ _id: req.params.id })
         
@@ -82,7 +89,7 @@ exports.updateComments = async (req, res) => {
         // Mise à jour du commentaire // 
         await Comment.updateOne(
             { _id: req.params.id }, 
-            {...req.body, _id: req.params.id}
+            {...commentObject, _id: req.params.id}
         )
 
         return res.json({ message: 'Comment Updated !' })
@@ -104,11 +111,30 @@ exports.deleteComments = (req, res) => {
         }  else if (!req.body.postId){
             return res.status(400).json({ message: `postId unknown: ${req.body.postId} !` })
         }
-    
+       
+        Comment.findOne({ _id: req.params.id})
+        .then(comment => {
+            if (comment === null) {
+                res.status(404).json({ message: 'This user does not exist !' })
+            } else {
+                const filename = comment.picture.split('/images/uploads/comments/') [1]
+                fs.unlink(`images/uploads/comments/${filename}`, () => {
+                    Comment.deleteOne({_id: req.params.id})
+                        .then(() => { res.status(204).json({message: 'Delete Comment !'})})
+                        .catch(error => res.status(401).json({ error }))
+                });
+            }
+        })
+        .catch( error => {
+            res.status(500).json({ error });
+        })
+
+        /*
         // Suppression du commentaire //
         Comment.deleteOne({ _id: req.params.id }) 
-            .then(() => res.status(204).json({ message: 'Delete User !' }))
+            .then(() => res.status(204).json({ message: 'Delete Comment !' }))
             .catch(err => res.status(500).json({ message: 'Database Error !', error: err }))
+        */
 }
 
 //////////////////////////////////////////////////////:

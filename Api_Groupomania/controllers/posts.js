@@ -1,8 +1,9 @@
 // Import des modules //
 
 const Post = require('../models/post')
-
+const fs = require('fs')
 const ObjectID = require("mongoose").Types.ObjectId;
+
 
 // Routage de la ressource post //
 
@@ -47,9 +48,9 @@ exports.createPosts = async (req, res) => {
         // Création du post //
         const postObject = req.body
         const postCreate = new Post ({
-            ...postObject
+            ...postObject,
+            picture: `${req.protocol}://${req.get('host')}/images/uploads/posts/${req.file.filename}`
         })
-
         await postCreate.save()
         return res.status(201).json({ message: 'Post Created !' })
     } catch (err) {
@@ -58,7 +59,8 @@ exports.createPosts = async (req, res) => {
 }
 
 exports.updatePosts = async (req, res) => {
-   // Vérification de la présence du paramètre 'id' dans la requête //
+
+    // Vérification de la présence du paramètre 'id' dans la requête //
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
     }
@@ -69,17 +71,23 @@ exports.updatePosts = async (req, res) => {
     }
    
     try {
+
+        const postObject = req.file ? {
+            ...req.body,
+            picture: `${req.protocol}://${req.get('host')}/images/uploads/posts/${req.file.filename}`
+        } : {...req.body}
+
         // Recherche du post et vérification //
-        let post = await Post.findOne({ _id: req.params.id })
+        let postModify = await Post.findOne({ _id: req.params.id })
         
-        if (post === null) {
+        if (postModify === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
 
         // Mise à jour du post // 
         await Post.updateOne(
             { _id: req.params.id }, 
-            {...req.body, _id: req.params.id}
+            {...postObject, _id: req.params.id}
         )
 
         return res.json({ message: 'Post Updated !' })
@@ -100,10 +108,29 @@ exports.deletePosts = (req, res) => {
         return res.status(400).json({ message: `UserId unknown ${req.body.userId} !` })
     }
 
+    Post.findOne({ _id: req.params.id})
+        .then(post => {
+            if (post === null) {
+                res.status(404).json({ message: 'This user does not exist !' })
+            } else {
+                const filename = post.picture.split('/images/uploads/posts/') [1]
+                fs.unlink(`images/uploads/posts/${filename}`, () => {
+                    Post.deleteOne({_id: req.params.id})
+                        .then(() => { res.status(204).json({message: 'Delete Post !'})})
+                        .catch(error => res.status(401).json({ error }))
+                });
+            }
+        })
+        .catch( error => {
+            res.status(500).json({ error });
+        })
+
+    /*
     // Suppression du post //
     Post.deleteOne({ _id: req.params.id }) 
-        .then(() => res.status(204).json({ message: 'Delete User !' }))
+        .then(() => res.status(204).json({ message: 'Delete Post !' }))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
+    */
 }
 
 

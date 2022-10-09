@@ -39,7 +39,6 @@ const userSchema = mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        required: true
     },
     likesProfile: {
         type: [String]

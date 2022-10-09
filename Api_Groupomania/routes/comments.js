@@ -3,8 +3,7 @@
 const express = require('express')
 const commentControllers = require('../controllers/comments')
 
-const checkTokenMiddleware = require('../middlewares/checking_JsonWebToken')
-
+const upload = require('../middlewares/multer-config').single('image_comment')
 
 // Récupération du router d'express. //
 
@@ -17,11 +16,11 @@ router.get('/', commentControllers.getAllComments)
 
 router.get('/:id', commentControllers.getOneComments)
 
-router.put('/', checkTokenMiddleware, commentControllers.createComments)
+router.put('/', upload, commentControllers.createComments)
 
-router.patch('/:id', checkTokenMiddleware, commentControllers.updateComments)
+router.patch('/:id', upload, commentControllers.updateComments)
 
-router.delete('/:id', checkTokenMiddleware, commentControllers.deleteComments)
+router.delete('/:id', upload, commentControllers.deleteComments)
 
 //////////////////////////////////////////////////////////
 

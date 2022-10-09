@@ -1,10 +1,10 @@
 // Import des modules //
 
 const bcrypt = require('bcrypt')
+const fs = require('fs')
 const User = require('../models/user')
 
 const ObjectID = require("mongoose").Types.ObjectId;
-
 
 // Routage de la ressource user //
 
@@ -50,18 +50,17 @@ exports.createUser = async (req, res) => {
         if (userChecking !== null) {
             return res.status(409).json({ message: `The user ${nom} already exists !` })
         }
-    
+       
         // Hashage du mot de passe utilisateur //
         let hash = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT_PASSWORD))
         req.body.password = hash
-        
+       
         // Création de l'utilisateur //
         const userObject = req.body
         const user = new User ({
             ...userObject,
-            profilePicture: 'images' //`${req.protocol}://${req.get('host')}/images/profils/${req.file.filename}`,
+            profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
         })
-        console.log('vbvc')
         await user.save()
         return res.status(201).json({ message: 'User Created !'})
 
@@ -78,10 +77,16 @@ exports.updateUser = async (req, res) => {
     }
 
     try {
-        // Recherche et vérification de l'utilisateur //
-        let user = await User.findOne({ _id: req.params.id })
+        
+        const userObject = req.file ? {
+            ...req.body,
+            profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
+        } : {...req.body}
 
-        if (user === null) {
+        // Recherche et vérification de l'utilisateur //
+        let userModify = await User.findOne({ _id: req.params.id })
+
+        if (userModify === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
 
@@ -89,27 +94,59 @@ exports.updateUser = async (req, res) => {
         // User.updateOne(WHERE, DATA).
         await User.updateOne(
             { _id: req.params.id }, 
-            {...req.body, _id: req.params.id}
+            {...userObject, _id: req.params.id}
         )
 
-        return res.json({ message: 'User Updated !' })
+        return res.status(200).json({ message: 'User Updated !' })
     } catch (err) {
-        return res.status(500).json({ mesage: 'Database Error !', error: err })
+        return res.status(500).json({ message: 'Database Error !', error: err })
     }
 }
 
 exports.deleteUser = (req, res) => {
 
- // Vérification de la présence du paramètre 'id' dans la requête //
- if (!ObjectID.isValid(req.params.id)) {
-    return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
+    // Vérification de la présence du paramètre 'id' dans la requête //
+    if (!ObjectID.isValid(req.params.id)) {
+        return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
+    }
+
+    User.findOne({ _id: req.params.id})
+        .then(user => {
+            if (user === null) {
+                res.status(404).json({ message: 'This user does not exist !' })
+            } else {
+                const filename = user.profilePicture.split('/images/uploads/profiles/') [1];
+                fs.unlink(`images/uploads/profiles/${filename}`, () => {
+                    User.deleteOne({_id: req.params.id})
+                        .then(() => { res.status(204).json({message: 'Delete User !'})})
+                        .catch(error => res.status(401).json({ error }))
+                });
+            }
+        })
+        .catch( error => {
+            res.status(500).json({ error });
+        })
+
+    /*
+    try {
+        let userDelete = await User.findOne({ _id: req.params.id })
+
+        if (userDelete === null) {
+            return res.status(404).json({ message: 'This user does not exist !' })
+        } else {
+            const filename = userDelete.profilePicture.split('/images/uploads/profiles/') [1]
+            console.log("test222")
+                await fs.unlink(`images/uploads/profiles/${filename}`, () => {
+                    User.deleteOne({_id: req.params.id})
+                        return res.status(204).json({message: 'Delete User !'})
+                })  
+        }        
+    } catch(err) {
+        return res.status(500).json({ message: 'Database Error', error: err })
+    }
+    */
 }
 
-// Suppression de l'utilisateur //
-User.deleteOne({ _id: req.params.id }) 
-    .then(() => res.status(204).json({ message: 'Delete User !'}))
-    .catch(err => res.status(500).json({ message: 'Database Error !', error: err }))
-}
 
 ///////////////////////////////////////////////////
 
@@ -119,10 +156,10 @@ exports.like = async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
 
         return res.status(400).json({ message: `Liker ID unknown: ${req.params.id} !` }) 
-
     } else if (!ObjectID.isValid(req.body.userId)){
 
-        return res.status(400).json({ message: `Liking ID unknown: ${req.body.userId} !` }) 
+        return res.status(400).json({ message: `Liking ID unknown: ${req.body.userId} !` })
+        
     // Vérification que les 'ID' ne soient pas identiques //
     } else if (req.params.id === req.body.userId) {
         
@@ -251,7 +288,7 @@ exports.unfollow = async (req, res) => {
                 return res.status(403).json({ message: 'You allready follow this user !'})
             }
         } catch (err) {
-            return res.status(500).json({ message: 'Data Error', error: err })
+            return res.status(500).json({ message: 'Database Error', error: err })
         }
     }
 }

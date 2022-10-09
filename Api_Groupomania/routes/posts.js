@@ -3,7 +3,7 @@
 const express = require('express')
 const postControllers = require('../controllers/posts')
 
-const checkTokenMiddleware = require('../middlewares/checking_JsonWebToken')
+const upload = require('../middlewares/multer-config').single('image_post')
 
 // Récupération du router d'express. //
 
@@ -16,12 +16,11 @@ router.get('/', postControllers.getAllPosts)
 
 router.get('/:id', postControllers.getOnePosts)
 
-router.put('/', checkTokenMiddleware, postControllers.createPosts)
+router.put('/', upload, postControllers.createPosts)
 
-router.patch('/:id', checkTokenMiddleware, postControllers.updatePosts)
+router.patch('/:id', upload, postControllers.updatePosts)
 
-router.delete('/:id', checkTokenMiddleware, postControllers.deletePosts)
-
+router.delete('/:id', upload, postControllers.deletePosts)
 
 //////////////////////////////////////////////////////////
 

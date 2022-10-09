@@ -2,9 +2,10 @@
 
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const mongoose = require('mongoose')
 
-//const checkTokenMiddleware = require('./middlewares/checking_JsonWebToken')
+const checkTokenMiddleware = require('./middlewares/checking_JsonWebToken')
 
 // Initialisation de l'API. //
 
@@ -18,6 +19,8 @@ app.use(cors({
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
 // Import des modules de routage. //
@@ -34,8 +37,8 @@ const auth_router = require('./routes/auth')
 app.get('/', (req, res) => res.send('You are connected!'))
 
 app.use('/users', user_router)  
-app.use('/posts', post_router)  
-app.use('/comments', comment_router) 
+app.use('/posts', checkTokenMiddleware, post_router)  
+app.use('/comments', checkTokenMiddleware, comment_router) 
 
 app.use('/auth', auth_router)
 
