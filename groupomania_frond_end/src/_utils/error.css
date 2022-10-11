@@ -1,0 +1,21 @@
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+}
+
+.error_text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FD2D01;
+    width: 500px;
+    height: 300px;
+    font-weight: 400;
+    font-size: 40px;
+    text-transform: uppercase;
+    border-radius: 80px 20px 80px 20px;
+    border-left: ridge 3mm #FFD7D7;
+    border-top: ridge 2mm #FFD7D7;
+}

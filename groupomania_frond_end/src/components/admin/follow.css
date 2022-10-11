@@ -1,0 +1,30 @@
+.section_follow {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.links_follow {
+    display: flex;
+    height: 140px;
+    padding-left: 40px;
+    border-left: solid 0.5px #FFD7D7;
+}
+
+.link_follow {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 4px;
+    margin-right: 10px;
+    width: 80px;
+    height: 80px;
+    border-left: solid 0.5px #FFD7D7;
+    border-radius: 15px 15px 15px 5px;
+    background-color:  rgba(255, 215, 215, 0.25);
+}
+
+.link_follow a {
+    color: black;
+    font-weight: 200;
+    padding: 2px 4px;
+    border-bottom: solid 0.5px #FFD7D7;
+}
