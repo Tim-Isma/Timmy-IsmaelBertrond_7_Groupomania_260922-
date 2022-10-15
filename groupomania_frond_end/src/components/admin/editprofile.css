@@ -1,0 +1,115 @@
+.edit {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.profile_picture {
+    width: 250px;
+}
+
+.picture {
+    width: auto;
+    height: 250px;
+    border: solid 1px  #4E5166; 
+    border-radius: 20px;
+    background-color: white;
+}
+
+.description {
+    margin-right: 20px;
+    color: #4E5166;
+}
+
+.name-field_profile {
+    text-align: center;
+    width: 250px;
+    height: 20px;
+    margin: 5px 0px;
+    border: solid 0px;
+    background-color: #FFD7D7;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+.firstName-field_profile {
+    text-align: center;
+    width: 250px;
+    height: 20px;
+    margin: 5px 0px;
+    border: solid 0px;
+    background-color: #FFD7D7;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+.pseudo-field_profile {
+    text-align: center;
+    width: 250px;
+    height: 20px;
+    margin: 5px 0px;
+    border: solid 0px;
+    background-color: #FFD7D7;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+.email-field_profile {
+    text-align: center;
+    width: 250px;
+    height: 20px;
+    margin: 5px 0px;
+    border: solid 0px;
+    background-color: #FFD7D7;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+.city-field_profile {
+    text-align: center;
+    width: 250px;
+    height: 20px;
+    margin: 5px 0px;
+    border: solid 0px;
+    background-color: #FFD7D7;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+.password-field_profile {
+    text-align: center;
+    width: 250px;
+    height: 20px;
+    margin: 5px 0px;
+    border: solid 0px;
+    background-color: #FFD7D7;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+
+.submit-btn {
+    color:  #4E5166;
+    width: 220px;
+    height: 50px;
+    font-size: 16px;
+    margin-top: 20px;
+    border: solid 1px #4E5166;
+    border-radius: 30px 15px 30px 15px;
+    background-color: rgba(253, 43, 1, 0.5);
+    cursor: pointer;
+}
+
+.iconeupdate {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+}
+
+.iconeupdate button {
+    display: flex;
+    justify-content: center;
+}
+
+.iconeupdate img {
+    width: 15px;
+    height: 15px;
+    background-color: #FD2D01;
+    padding: 8px;
+    border-radius: 50px;
+    border: dashed 1px  #4E5166;
+}
+

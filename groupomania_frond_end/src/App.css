@@ -4,17 +4,9 @@
 
 /***************************/
 
-ul {
-  list-style: none;
-  padding: 0px;
-}
-
-a {
-  text-decoration: none;
-}
-
 h1 {
-  font-weight: 600;
+  color: #4E5166;
+  font-weight: 400;
 }
 
 /***************************/
@@ -22,11 +14,18 @@ h1 {
 /* Home */
 
 .home {
-  display: flex;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
 }
 
 .home_title {
-  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+}
+
+.home_post {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,16 +34,37 @@ h1 {
 /* Profile */
 
 .profile {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
 }
 
+
 .profile_title {
-  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 130px;
+  height: 140px;
+}
+
+.profile section {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.edit_profile {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 580px;
+}
+
+.form_profile {
+  width: 650px;
+  height: auto;
+  border: solid 1px #4E5166;
+  background-color: #FFD7D7;
+  border-radius: 50px 20px 50px 20px ;
+  padding: 40px;
 }
 
 /***************************/

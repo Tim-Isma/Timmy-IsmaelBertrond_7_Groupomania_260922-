@@ -8,7 +8,7 @@ const Admin = () => {
     const [signUpModal, setSignUpModal] = useState(true);
     const [signInModal, setSignInModal] = useState(false);
 
-    const handleModals =(e) => {
+    const handleModals = (e) => {
         if(e.target.id === "register") {
             setSignInModal(false)
             setSignUpModal(true)

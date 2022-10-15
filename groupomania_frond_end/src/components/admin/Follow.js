@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 const Follow = () => {
     return (
-            <section className='nav_follow'>
-                <ul className='links_follow'>
-                    <li className='link_follow'><Link to='/follower'>Follower:</Link></li>
-                    <li className='link_follow'><Link to='/following'>Following:</Link></li>
+            <section className='section_follow'>
+                <ul>
+                    <li><Link to='/follower'>Follower:</Link></li>
+                    <li><Link to='/following'>Following:</Link></li>
                 </ul>
             </section>
     );

@@ -1,15 +1,16 @@
 .sign-form {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 40px;
     height: 700px;
 }
 
 .form-container {
     display: grid;
-    grid-template-columns: 35% 65%;
-    width: 600px;
-    height: 220px;
+    grid-template-columns: 40% 60%;
+    width: 650px;
+    height: auto;
     border: solid 1px #4E5166;
     background-color: #FFD7D7;
     border-radius: 50px 20px 50px 20px ;
@@ -17,6 +18,8 @@
 }
 
 .form-container ul {
+    list-style: none;
+    padding: 0px;
     margin: 0px;
 }
 
