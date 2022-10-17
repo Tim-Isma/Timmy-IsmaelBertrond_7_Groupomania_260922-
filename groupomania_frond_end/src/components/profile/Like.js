@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './like.css'
+import iconLike from '@/icons/icon_like_profile.png'
 
 const Like = () => {
     const [like, setLike] = useState();
@@ -14,7 +15,10 @@ const Like = () => {
     return (
         <div>
             <section className='section_like'>
-                <span onClick={handleLike} id='like' className={like ? 'enable-like' : 'disable-like'}>Like</span>
+                <span onClick={handleLike} id='like' className={like ? 'enable-like' : 'disable-like'}>
+                    <img src={iconLike} alt='Icon like'/>
+                    Like
+                </span>
             </section>
         </div>
     );

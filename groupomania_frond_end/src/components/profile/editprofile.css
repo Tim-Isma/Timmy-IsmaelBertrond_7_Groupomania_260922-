@@ -96,20 +96,14 @@
 .iconeupdate {
     display: flex;
     justify-content: flex-end;
-    padding-top: 20px;
-}
-
-.iconeupdate button {
-    display: flex;
-    justify-content: center;
+    padding-top: 35px;
 }
 
 .iconeupdate img {
     width: 15px;
     height: 15px;
-    background-color: #FD2D01;
-    padding: 8px;
+    padding: 6px;
     border-radius: 50px;
-    border: dashed 1px  #4E5166;
+    border: dashed 1px #FD2D01;
 }
 

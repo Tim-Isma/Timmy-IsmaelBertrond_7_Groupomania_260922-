@@ -1,9 +1,11 @@
 import React from 'react';
-import Header from '@/components/admin/Header';
-import Follow from '@/components/admin/Follow';
-import Nav from '@/components/admin/Nav';
-import Like from '@/components/admin/Like';
-import EditProfile from '../components/admin/EditProfile';
+import Header from '@/components/header/Header';
+import Follow from '@/components/profile/Follow';
+import Nav from '@/components/header/Nav';
+import Like from '@/components/profile/Like';
+import EditProfile from '../components/profile/EditProfile';
+
+import './profile.css'
 
 const Profile = () => {
     return (

@@ -11,65 +11,6 @@ h1 {
 
 /***************************/
 
-/* Home */
-
-.home {
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-}
-
-.home_title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 140px;
-}
-
-.home_post {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Profile */
-
-.profile {
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-}
-
-
-.profile_title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 140px;
-}
-
-.profile section {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.edit_profile {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 580px;
-}
-
-.form_profile {
-  width: 650px;
-  height: auto;
-  border: solid 1px #4E5166;
-  background-color: #FFD7D7;
-  border-radius: 50px 20px 50px 20px ;
-  padding: 40px;
-}
-
-/***************************/
-
-
 /*
 .App-header {
   background-color: #282c34;

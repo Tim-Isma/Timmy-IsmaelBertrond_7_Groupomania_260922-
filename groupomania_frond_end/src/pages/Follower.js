@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '@/components/admin/Header';
-import Nav from '../components/admin/Nav';
+import Header from '@/components/header/Header';
+import Nav from '../components/header/Nav';
 
 const Follower = () => {
     return (

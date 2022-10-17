@@ -2,6 +2,10 @@
     margin: 15px 0px;
 }
 
+.file_upload {
+    display: none;
+}
+
 .valid-btn {
     color:  #4E5166;
     width: 180px;

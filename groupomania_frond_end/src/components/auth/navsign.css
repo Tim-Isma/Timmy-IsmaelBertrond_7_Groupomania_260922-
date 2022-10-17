@@ -1,0 +1,35 @@
+.nav_sign {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 auto;
+}
+
+.nav_sign ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 150px;
+    height: 120px;
+    list-style: none;
+    padding: 0px;
+}
+
+.nav_sign a {
+    text-decoration: none;
+    padding: 10px 25px;
+    font-size: 18px;
+    color: #4E5166;
+}
+
+.enable_Nav-sign-btns {
+    border-radius: 20px 10px 20px 10px;
+    background-color: hsla(10, 99%, 50%, 0.400);
+    border: solid 0.5px #4E5166;
+}
+
+.disable_Nav-sign-btns:hover {
+    border-radius: 20px 10px 20px 10px;
+    border: solid 0.5px rgba(78, 81, 102, 0.5);
+    background-color: rgba(255, 215, 215, 0.5);
+}

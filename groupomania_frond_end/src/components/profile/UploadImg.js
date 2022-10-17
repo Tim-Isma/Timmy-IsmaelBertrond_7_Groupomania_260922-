@@ -11,7 +11,7 @@ const UploadImg = () => {
     return (
         <form action='' onSubmit={handlePicture} className='upload-profile-pic'>
             <label htmlFor='image_profile'>Modifier votre photo</label>
-            <input
+            <input className='file_upload'
                 type='file'
                 id='image_profile'
                 name='image_profile'

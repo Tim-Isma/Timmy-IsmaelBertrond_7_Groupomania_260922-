@@ -1,8 +1,9 @@
 import React from 'react';
-import Header from '@/components/admin/Header';
-import Nav from '@/components/admin/Nav';
-import Post from '@/components/admin/Post';
+import Header from '@/components/header/Header';
+import Nav from '@/components/header/Nav';
+import Post from '@/components/home/Post';
 
+import './home.css'
 
 const Home = () => {
     return (

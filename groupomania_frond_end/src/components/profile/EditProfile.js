@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './editprofile.css'
-import iconeEdit from '@/icones/icone_update.png'
+import iconEdit from '@/icons/icon_update.svg'
 import UploadImg from './UploadImg';
 
 const EditProfile = () => {
@@ -87,9 +87,7 @@ const EditProfile = () => {
                     <input className='submit-btn' type='submit' value='Modifier profile' />
                 </form>
                 <div className='iconeupdate'>
-                    <button>
-                        <img src={iconeEdit} alt='Icone edit'/>
-                    </button>
+                        <img src={iconEdit} alt='Icon edit'/>
                 </div>
             </div>
         </div>

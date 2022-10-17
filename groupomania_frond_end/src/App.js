@@ -1,28 +1,20 @@
 import '@/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from '@/pages/Home';
-import Profile from '@/pages/Profile';
-import Error from '@/_utils/Error'
-import Follower from '@/pages/Follower';
-import Following from '@/pages/Following';
-import Admin from '@/pages/Admin';
+import AuthRouter from '@/pages/auth/AuthRouter';
+import AdminRouter from '@/pages/AdminRouter';
+import AuthGuard from './_helpers/AuthGuard';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home/>} />
-
-          <Route path='/admin' element={<Admin/>} />
-
-          <Route path='/home' element={<Home/>} />
-          <Route path='/profile' element={<Profile/>} />
-
-          <Route path='/follower' element={<Follower/>} />
-          <Route path='/following' element={<Following/>} />
-          
-          <Route path='*' element={<Error/>} />
+            <Route path='/admin/*' element={
+              <AuthGuard>
+                <AdminRouter/>
+              </AuthGuard>
+            } />
+            <Route path='/auth/*' element={<AuthRouter/>} />
         </Routes>
       </BrowserRouter>
     </div>

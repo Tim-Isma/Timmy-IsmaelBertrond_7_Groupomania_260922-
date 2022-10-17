@@ -9,6 +9,21 @@
 }
 
 .section_like span {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    font-weight: 300;
+    color: #4E5166;
+    cursor: pointer;
+}
+
+.section_like img {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.section_like span {
     padding: 5px 10px;
     font-weight: 300;
     color: #4E5166;
