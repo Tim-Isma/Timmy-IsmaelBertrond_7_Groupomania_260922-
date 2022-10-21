@@ -18,7 +18,7 @@ let router = express.Router()
 
 router.get('/', checkTokenMiddleware, userControllers.getAllUsers)
 
-router.get('/:id', checkTokenMiddleware, userControllers.getOneUser)
+router.get('/me', checkTokenMiddleware, userControllers.getOneUser)
 
 router.put('/', upload, userControllers.createUser)
 

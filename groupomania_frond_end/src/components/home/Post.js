@@ -14,7 +14,7 @@ const Post = () => {
     }
 
     const handlePicture = (e) => {
-        setPostPicture(URL.createObjectURL(e.target.files[0]))
+        setPostPicture()
     }
 
     const handleCancel = () => {

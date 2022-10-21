@@ -14,12 +14,12 @@ const Header = () => {
 
     return (
             <header>
-                <div className='logo_header'>
-                    <div>
+                <div className='header_container'>
+                    <div className='logo_header'>
                         <img src={logo} className='logo' alt='Logo Groupomania' />
                     </div>
-                    <div className='icon_log-out'>
-                        <button className='btn_log-out' onClick={logout}>
+                    <div className='log-out_container'>
+                        <button className='log-out_btn' onClick={logout}>
                             <i className="fa-solid fa-right-from-bracket"></i>
                         </button>
                     </div>

@@ -1,35 +1,30 @@
-.section_like {
+.like-btn_container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
+    width: 90px;
     height: 80px;
-    margin-top: 15px;
+    margin: 15px 0px;
     border-left: solid 0.5px  #4E5166;
+    border-right: solid 0.5px  #4E5166;
 }
 
-.section_like span {
-    display: flex;
-    align-items: center;
-    padding: 5px 10px;
-    font-weight: 300;
+.like-btn {
+    width: 70px;
+    height: 35px;
     color: #4E5166;
+    font-size: 15px;
+    border-radius: 15px 5px 15px 15px;
+    border: solid 0.5px #FFD7D7;
+    background-color: rgba(255, 215, 215, 0.5);
     cursor: pointer;
 }
 
-.section_like img {
-    width: 15px;
-    height: 15px;
+.fa-heart {
     margin-right: 5px;
-    cursor: pointer;
-}
-.section_like span {
-    padding: 5px 10px;
-    font-weight: 300;
-    color: #4E5166;
-    cursor: pointer;
 }
 
+/*
 .enable-like {
     background-color: rgba(253, 43, 1, 0.5);
     border-radius: 15px 5px 15px 15px;
@@ -41,3 +36,4 @@
     border-radius: 15px 5px 15px 15px;
     border: solid 0.5px #FFD7D7;
 }
+*/

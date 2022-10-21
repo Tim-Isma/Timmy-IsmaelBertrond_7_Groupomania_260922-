@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { accountService } from '@/_services/account.service';
+
 import Header from '@/components/header/Header';
 import NavSign from '@/components/auth/NavSign';
 
 import './auth.css'
 
 const SignUp = () => {
+    let navigate = useNavigate()
 
-    const [credentials, setCredentials] = useState({
+    const [register, setRegister] = useState({
         name:'',
         firstName:'',
         pseudo:'',
@@ -17,16 +22,22 @@ const SignUp = () => {
     const [passwordIsVisible, setPasswordIsVisible] = useState(false)
 
     const onChange = (e) => {
-        setCredentials({
-            ...credentials,
+        setRegister({
+            ...register,
             [e.target.name]: e.target.value
         })
     }
-
+    /* ??? */
     const handleRegister = (e) => {
         e.preventDefault();
-        console.log('formulaire')
-        console.log(credentials)
+        accountService.register(register)
+            .then(res => {
+                console.log(res)
+                //accountService.saveToken(res.data.access_token)
+                navigate('/admin/home')
+            })
+            .catch(error => console.log(error))
+        
         
     }
 
@@ -48,7 +59,7 @@ const SignUp = () => {
                                 <input className='name-field'
                                     type='text' 
                                     name='name'
-                                    value={credentials.name}
+                                    value={register.name}
                                     onChange={onChange}  
                                 />
                                 <div className='message_error'></div>
@@ -58,7 +69,7 @@ const SignUp = () => {
                                 <input className='firstName-field'
                                     type='text' 
                                     name='firstName'
-                                    value={credentials.firstName}
+                                    value={register.firstName}
                                     onChange={onChange}  
                                 />
                                 <div className='message_error'></div>
@@ -68,7 +79,7 @@ const SignUp = () => {
                                 <input className='pseudo-field'
                                     type='text' 
                                     name='pseudo'
-                                    value={credentials.pseudo}
+                                    value={register.pseudo}
                                     onChange={onChange} 
                                 />
                                 <div className='message_error'></div>
@@ -78,7 +89,7 @@ const SignUp = () => {
                                 <input className='email-field'
                                     type='text' 
                                     name='email'
-                                    value={credentials.email}
+                                    value={register.email}
                                     onChange={onChange}  
                                 />
                                 <div className='message_error'></div>
@@ -88,7 +99,7 @@ const SignUp = () => {
                                 <input className='city-field'
                                     type='text' 
                                     name='city'
-                                    value={credentials.city}
+                                    value={register.city}
                                     onChange={onChange}  
                                 />
                                 <div className='message_error'></div>
@@ -98,7 +109,7 @@ const SignUp = () => {
                                 <input className='password-field'
                                     type={passwordIsVisible ? 'text' : 'password'} 
                                     name='password'
-                                    value={credentials.password}
+                                    value={register.password}
                                     onChange={onChange}  
                                 />
                                 <div className='message_error'></div>

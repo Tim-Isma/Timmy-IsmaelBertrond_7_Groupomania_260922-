@@ -5,15 +5,15 @@ import './navsign.css'
 
 const NavSign = () => {
     return (
-        <nav className='nav_sign'>
+        <nav className='nav-sign_container'>
             <ul>
                 <li>
-                    <NavLink to='/auth/sign-up' className={({isActive}) => isActive ? 'enable_Nav-sign-btns' : 'disable_Nav-sign-btns'}>
+                    <NavLink to='/auth/sign-up' className={({isActive}) => isActive ? 'enable_nav-sign_btns' : 'disable_nav-sign_btns'}>
                         Inscription
                     </NavLink> 
                 </li>
                 <li>
-                    <NavLink to='/auth/sign-in' className={({isActive}) => isActive ? 'enable_Nav-sign-btns' : 'disable_Nav-sign-btns'}>
+                    <NavLink to='/auth/sign-in' className={({isActive}) => isActive ? 'enable_nav-sign_btns' : 'disable_nav-sign_btns'}>
                         Connexion
                     </NavLink>
                 </li>

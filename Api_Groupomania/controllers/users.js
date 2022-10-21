@@ -17,13 +17,13 @@ exports.getAllUsers = (req, res) => {
 exports.getOneUser = async (req, res) => {
 
     // Vérification de l'existance du paramètre 'id' dans la requête //
-    if (!ObjectID.isValid(req.params.id)) {
-        return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
+    if (!ObjectID.isValid(req.user)) {
+        return res.status(400).json({ message: `ID unknown: ${req.user} !` })
     }
     console.log(req.body)
     try {
         // Recherche de l'utilisateur et vérification //
-        let user = await User.findOne({ _id: req.params.id }).select('-password')
+        let user = await User.findOne({ _id: req.user }).select('-password')
         
         if (user === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
@@ -32,7 +32,7 @@ exports.getOneUser = async (req, res) => {
         }
         
     } catch (err) {
-        return res.status(500).json({ mesage: 'Database Error !', error: err })
+        return res.status(500).json({ message: 'Database Error !', error: err })
     }
 }
 
@@ -59,7 +59,7 @@ exports.createUser = async (req, res) => {
         const userObject = req.body
         const user = new User ({
             ...userObject,
-            profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
+            //profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
         })
         await user.save()
         return res.status(201).json({ message: 'User Created !'})
@@ -72,8 +72,8 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   
     // Vérification de la présence du paramètre 'id' dans la requête //
-    if (!ObjectID.isValid(req.params.id)) {
-        return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
+    if (!ObjectID.isValid(req.user)) {
+        return res.status(400).json({ message: `ID unknown: ${req.user} !` })
     }
 
     try {
@@ -84,7 +84,7 @@ exports.updateUser = async (req, res) => {
         } : {...req.body}
 
         // Recherche et vérification de l'utilisateur //
-        let userModify = await User.findOne({ _id: req.params.id })
+        let userModify = await User.findOne({ _id: req.user })
 
         if (userModify === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
@@ -93,8 +93,8 @@ exports.updateUser = async (req, res) => {
         // Mise à jour de l'utilisateur // 
         // User.updateOne(WHERE, DATA).
         await User.updateOne(
-            { _id: req.params.id }, 
-            {...userObject, _id: req.params.id}
+            { _id: req.user }, 
+            {...userObject, _id: req.user}
         )
 
         return res.status(200).json({ message: 'User Updated !' })

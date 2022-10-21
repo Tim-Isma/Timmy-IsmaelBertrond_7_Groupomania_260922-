@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 import { accountService } from '@/_services/account.service';
 
@@ -27,9 +26,7 @@ const SignIn = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log('formulaire')
-        console.log(credentials)
-        axios.post(`${process.env.REACT_APP_API_URL}auth/login`, credentials)
+        accountService.login(credentials)
             .then(res => {
                 console.log(res)
                 accountService.saveToken(res.data.access_token)

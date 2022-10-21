@@ -1,4 +1,4 @@
-.logo_header {
+.header_container {
     display: grid;
     grid-template-columns: 92% 8%;
     background-color: #FFD7D7;
@@ -11,19 +11,19 @@
     height: 6vmin;
 }
 
-.icon_log-out {
+.log-out_container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.btn_log-out {
+.log-out_btn {
     color:  #4E5166;
     background-color: transparent;
     border: solid 0px;
     cursor: pointer;
 }
 
-.btn_log-out:hover {
+.log-out_btn:hover {
     color:  #FD2D01;
 }

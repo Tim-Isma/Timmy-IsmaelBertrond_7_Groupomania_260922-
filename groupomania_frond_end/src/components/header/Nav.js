@@ -7,15 +7,15 @@ const Nav = () => {
 
 
     return (
-        <nav className='nav_main'>
+        <nav className='nav-main_container'>
             <ul>
                 <li>
-                    <NavLink to='/admin/home' className={({isActive}) => isActive ? 'enable-btns-Nav' : 'disable-btns-Nav'}>
+                    <NavLink to='/admin/home' className={({isActive}) => isActive ? 'enable_nav-main_btns' : 'disable_nav-main_btns'}>
                         Accueil
                     </NavLink> 
                 </li>
                 <li>
-                    <NavLink to='/admin/profile' className={({isActive}) => isActive ? 'enable-btns-Nav' : 'disable-btns-Nav'}>
+                    <NavLink to='/admin/profile' className={({isActive}) => isActive ? 'enable_nav-main_btns' : 'disable_nav-main_btns'}>
                         Votre Profile
                     </NavLink>
                 </li>

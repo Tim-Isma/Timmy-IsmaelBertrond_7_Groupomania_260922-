@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
+//import React, { useState, useEffect } from 'react';
+
 import './like.css'
-import iconLike from '@/icons/icon_like_profile.png'
 
 const Like = () => {
-    const [like, setLike] = useState();
+    //const [like, setLike] = useState();
 
-    const handleLike = (e) => {
-        if(e.target.id === 'like') {
-            setLike(false)
-            setLike(true)
-        }
+    /*
+    useEffect(() => {
+
+    }, [])
+    */
+
+    const handleLike = () => {
+        console.log('like')  
     }
 
     return (
         <div>
-            <section className='section_like'>
-                <span onClick={handleLike} id='like' className={like ? 'enable-like' : 'disable-like'}>
-                    <img src={iconLike} alt='Icon like'/>
+            <section className='like-btn_container'>
+                <button className='like-btn' onClick={handleLike} >
+                    <i className="fa-solid fa-heart"></i>
                     Like
-                </span>
+                </button>
             </section>
         </div>
     );
 };
+
+//id='like' className={like ? 'enable-like' : 'disable-like'}
 
 export default Like;
