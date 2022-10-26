@@ -23,6 +23,13 @@
     height: 650px;
 }
   
+.picture_container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 18px;
+    object-fit: cover;
+}
+
 .profile-user_container {
     width: 650px;
     height: auto;
@@ -43,6 +50,10 @@
     align-items: center;
 }
 
+.profil-title {
+    color: #4E5166;
+}
+
 .picture_container {
     display: flex;
     justify-content: center;
@@ -61,19 +72,23 @@
     flex-direction: column;
     align-items: center;
     list-style: none;
-    padding: 0px;
+    padding: 0;
     margin: 0;
 }
 
-.info-user_container li {
+.description_list {
     color: #4E5166;
+    font-size: 16px;
+    font-weight: 600;
     margin-top: 8px;
 }
 
 .info-user_list {
     width: 250px;
-    padding: 8px 0px;
-    border-bottom: solid 1px #4E5166;
+    color: #4E5166;
+    font-size: 16px;
+    padding: 5px 0px;
+    border-bottom: solid 0.5px #4E5166;
 }
 
 /***************************************/

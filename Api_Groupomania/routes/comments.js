@@ -14,7 +14,7 @@ let router = express.Router()
 
 router.get('/', commentControllers.getAllComments)
 
-router.get('/:id', commentControllers.getOneComments)
+router.get('/me', commentControllers.getOneComments)
 
 router.put('/', upload, commentControllers.createComments)
 

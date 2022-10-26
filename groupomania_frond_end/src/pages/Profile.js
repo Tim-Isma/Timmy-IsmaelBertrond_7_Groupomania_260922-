@@ -14,6 +14,8 @@ const Profile = () => {
     const [user, setUser] = useState([])
     const flag = useRef(false)
 
+    let pictureUser = user.profilePicture
+
     useEffect(() => {
         if(flag.current === false) {
             userService.getOneUser()
@@ -45,26 +47,26 @@ const Profile = () => {
                     <div className='profile-user'>
                         <div className='upload-img_container'>
                             <div>
-                                <h3>Photo de profile</h3>
+                                <h3 className='profil-title'>Photo de profile</h3>
                                 <div className='picture_container'>
-                                    Photo
+                                    <img src={pictureUser} alt='User-profile-img'/>
                                 </div>
                             </div>
                         </div>
                         <div className='info-user_container'>
                             <ul>
-                                <li>Nom:</li>
+                                <li className='description_list'>Nom:</li>
                                 <li className='info-user_list'>{user.name}</li>
-                                <li>Prénom:</li>
+                                <li className='description_list'>Prénom:</li>
                                 <li className='info-user_list'>{user.firstName}</li>
-                                <li>Pseudo:</li>
+                                <li className='description_list'>Pseudo:</li>
                                 <li className='info-user_list'>{user.pseudo}</li>
-                                <li>Email:</li>
+                                <li className='description_list'>Email:</li>
                                 <li className='info-user_list'>{user.email}</li>
-                                <li>Ville:</li>
+                                <li className='description_list'>Ville:</li>
                                 <li className='info-user_list'>{user.city}</li>
-                                <li>Mot de passe:</li>
-                                <li className='info-user_list'>**********</li>
+                                <li className='description_list'>Password:</li>
+                                <li className='info-user_list'>{user.password}</li>
                             </ul>
                         </div>
                     </div>

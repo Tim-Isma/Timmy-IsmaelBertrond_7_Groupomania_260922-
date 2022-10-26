@@ -11,12 +11,19 @@
 }
 
 .post_picture {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border: solid 1px  #4E5166; 
     border-radius: 20px;
-    background-color: white;
 }
+
+.post_picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 18px;
+    object-fit: cover;
+}
+
 
 .post_text textarea {
     width: 450px;
@@ -27,7 +34,7 @@
     border-radius: 10px;
 }
 
-.footer-post {
+.footer-write-post {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,6 +47,10 @@
     cursor: pointer;
 }
 
+.fa-image {
+    color: #4E5166;
+}
+
 .icon_upload-image input {
     display: none;
 }
@@ -50,21 +61,21 @@
     width: 210px;
 }
 
-.cancel {
+.cancel-post_btn {
     color: #FFD7D7;
     padding: 10px 20px;
     margin-right: 10px;
     font-size: 15px;
     border-radius: 10px;
-    border: solid 0.5px #FD2D01;
+    border: 0;
     background-color: #4E5166;
 }
 
-.send {
-    color: #FFD7D7;
+.send-post_btn {
+    color:  #FFD7D7;
     padding: 10px 20px;
     font-size: 15px;
+    border: 0;
     border-radius: 10px;
-    border: solid 0.5px #FD2D01;
     background-color: #4E5166;
 }

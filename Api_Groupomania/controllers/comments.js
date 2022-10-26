@@ -15,13 +15,13 @@ exports.getAllComments = (req, res) => {
 exports.getOneComments = async (req, res) => {
 
     // Vérification de l'existance du paramètre 'id' dans la requête.
-    if (!ObjectID.isValid(req.params.id)) {
-        return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
+    if (!ObjectID.isValid(req.user)) {
+        return res.status(400).json({ message: `ID unknown: ${req.user} !` })
     }
 
     try {
         // Recherche de l'utilisateur et vérification
-        let comment = await Comment.findOne({ _id: req.params.id })
+        let comment = await Comment.findOne({ _id: req.user })
         
         if (comment === null) {
             return res.status(404).json({ message: 'This comment does not exist !' })
@@ -30,7 +30,7 @@ exports.getOneComments = async (req, res) => {
         }
         
     } catch (err) {
-        return res.status(500).json({ mesage: 'Database Error !', error: err })
+        return res.status(500).json({ message: 'Database Error !', error: err })
     }
 }
 

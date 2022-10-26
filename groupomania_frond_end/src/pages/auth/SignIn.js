@@ -15,7 +15,7 @@ const SignIn = () => {
         email:'',
         password:''
     })
-    const [passwordIsVisible, setPasswordIsVisible] = useState(false)
+    const [passwordIsVisible, setPasswordIsVisible] = useState(true)
 
     const onChange = (e) => {
         setCredentials({
@@ -48,7 +48,7 @@ const SignIn = () => {
                 <div className='sign'>
                     <NavSign/>
                     <div className='form_container'>
-                        <form onSubmit={handleLogin}>
+                        <form className='form-sign' onSubmit={handleLogin}>
                             <div className='email'>
                                 <label htmlFor='email'>Email</label>
                                 <input className='email-field'
@@ -61,23 +61,25 @@ const SignIn = () => {
                             </div>
                             <div className='password'>
                                 <label htmlFor='password'>Password</label>
-                                <input className='password-field'
-                                    type={passwordIsVisible ? 'text' : 'password'} 
-                                    name='password'
-                                    value={credentials.password}
-                                    onChange={onChange}  
-                                />
+                                <div className='password_container'>
+                                    <input className='password-field'
+                                        type={passwordIsVisible ? 'text' : 'password'} 
+                                        name='password'
+                                        value={credentials.password}
+                                        onChange={onChange}  
+                                    />
+                                    <div className='show-password-btn_container'>
+                                        <button className='show-password-btn' value={passwordIsVisible} onClick={handlePasswordVisibility}>
+                                            {passwordIsVisible ? <i className="fa-solid fa-eye"></i>
+                                            : <i className="fa-regular fa-eye-slash"></i>
+                                            }
+                                        </button>
+                                    </div>
+                                </div>
                                 <div className='message_error'></div>
                             </div>
                             <input className='submit-btn' type='submit' value='Se connecter' />
                         </form>
-                        <div className='show-password-btn-in_container'>
-                            <input className='show-password-btn-in' 
-                                type='submit' 
-                                value={passwordIsVisible ? 'Hide' : 'Show' }
-                                onClick={handlePasswordVisibility} 
-                            />
-                        </div>
                     </div>
                 </div>
             </div>

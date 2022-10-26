@@ -5,21 +5,29 @@ let getAllPosts = () => {
 }
 
 let getOnePost = () => {
-    return Axios.get('/posts/me')
+    return Axios.get('/posts/')
 }
 
-let createPost = () => {
-    return Axios.put('/posts')
+let createPost = (post) => {
+    return Axios.put('/posts', post)
 }
 
-let updatePost = () => {
-    return Axios.patch('/posts/me')
+let updatePost = (post) => {
+    return Axios.patch('/posts/'+post._id, post)
 }
 
-let deletePost = () => {
-    return Axios.delete('/posts/me')
+let deletePost = (post) => {
+    return Axios.delete('/posts/'+post._id, post)
+}
+
+let likePost = (postId, userId) => {
+    return Axios.put('/posts/like/'+postId, {userId: userId})
+}
+
+let dislikePost = (post) => {
+    return Axios.put('/posts/dislike/'+post._id, post)
 }
 
 export const postService = {
-    getAllPosts, getOnePost, createPost, updatePost, deletePost
+    getAllPosts, getOnePost, createPost, updatePost, deletePost, likePost, dislikePost
 }

@@ -8,16 +8,16 @@ let getOneUser = () => {
     return Axios.get('/users/me')
 }
 
-let createUser = () => {
-    return Axios.put('Users')
+let createUser = (user) => {
+    return Axios.put('/users', user)
 }
 
-let updateUser = () => {
-    return Axios.patch('/users/me')
+let updateUser = (id, user) => {
+    return Axios.patch('/users/'+id, user)
 }
 
-let deleteUser = () => {
-    return Axios.delete('/users/me')
+let deleteUser = (user) => {
+    return Axios.delete('/users/'+user._id, user)
 }
 
 export const userService = {

@@ -28,7 +28,7 @@
     text-decoration: none;
     width: 200px;
     padding: 10px 0px;
-    border: solid 0.5px rgba(255, 255, 255, 0);
+    border: 0;
 }
 
 .enable_nav-main_btns {

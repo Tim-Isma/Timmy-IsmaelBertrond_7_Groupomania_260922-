@@ -4,20 +4,20 @@ let getAllComments = () => {
     return Axios.get('/comments')
 }
 
-let getOneComment = (cid) => {
-    return Axios.get('/comments'+cid)
+let getOneComment = () => {
+    return Axios.get('/comments/me')
 }
 
-let createComment = () => {
-    return Axios.put('/comments')
+let createComment = (comment) => {
+    return Axios.put('/comments', comment)
 }
 
-let updateComment = (cid) => {
-    return Axios.patch('/comments'+cid)
+let updateComment = () => {
+    return Axios.patch('/comments/me')
 }
 
-let deleteComment = (cid) => {
-    return Axios.delete('/comments'+cid)
+let deleteComment = () => {
+    return Axios.delete('/comments/me')
 }
 
 export const commentService = {

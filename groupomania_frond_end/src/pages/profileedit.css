@@ -32,10 +32,6 @@
     padding: 40px;
 }
 
-.form {
-    padding: 0px;
-}
-
 .profile-user {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -58,13 +54,24 @@
     background-color: transparent;
 }
 
+.profil-title {
+    color: #4E5166;
+}
+
+.picture_container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 18px;
+    object-fit: cover;
+}
+
 .update-img_btn {
     display: flex;
     justify-content: center;
     align-items: center;
     color:  #4E5166;
     width: 180px;
-    height: 50px;
+    height: 40px;
     font-size: 16px;
     margin-top: 20px;
     border: solid 1px #4E5166;
@@ -73,26 +80,39 @@
     cursor: pointer;
 }
 
-
-.file_upload {
+#profilePicture[type = "file"]{
     display: none;
 }
 
 /***************************************/
 
-.form {
-    margin: 0px;
+
+.edit-user_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0px;
 }
 
 .label_container {
-    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    color: #4E5166;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .name-field_profile {
     width: 250px;
     text-align: center;
+    color: #4E5166;
+    font-size: 16px;
     padding: 5px 0px;
-    border: solid 0px;
+    border: 0;
     background-color: transparent;
     border-bottom: solid 0.5px #4E5166;
 }
@@ -100,8 +120,10 @@
 .firstName-field_profile {
     width: 250px;
     text-align: center;
+    color: #4E5166;
+    font-size: 16px;
     padding: 5px 0px;
-    border: solid 0px;
+    border: 0;
     background-color: transparent;
     border-bottom: solid 0.5px #4E5166;
 }
@@ -109,8 +131,10 @@
 .pseudo-field_profile {
     width: 250px;
     text-align: center;
+    color: #4E5166;
+    font-size: 16px;
     padding: 5px 0px;
-    border: solid 0px;
+    border: 0;
     background-color: transparent;
     border-bottom: solid 0.5px #4E5166;
 }
@@ -118,8 +142,10 @@
 .email-field_profile {
     width: 250px;
     text-align: center;
+    color: #4E5166;
+    font-size: 16px;
     padding: 5px 0px;
-    border: solid 0px;
+    border: 0;
     background-color: transparent;
     border-bottom: solid 0.5px #4E5166;
 }
@@ -127,8 +153,10 @@
 .city-field_profile {
     width: 250px;
     text-align: center;
+    color: #4E5166;
+    font-size: 16px;
     padding: 5px 0px;
-    border: solid 0px;
+    border: 0;
     background-color: transparent;
     border-bottom: solid 0.5px #4E5166;
 }
@@ -136,29 +164,13 @@
 .password-field_profile {
     width: 250px;
     text-align: center;
+    color: #4E5166;
+    font-size: 16px;
     padding: 5px 0px;
-    border: solid 0px;
+    border: 0;
     background-color: transparent;
     border-bottom: solid 0.5px #4E5166;
 }
-
-/*
-.info-user_container ul {
-    list-style: none;
-    padding: 0px;
-    margin: 0;
-}
-
-.info-user_container li {
-    color: #4E5166;
-    margin-top: 8px;
-}
-
-.info-user_list {
-    padding: 8px 0px;
-    border-bottom: solid 1px #4E5166;
-}
-*/
 
 /***************************************/
 
@@ -178,4 +190,8 @@
 
 .fa-user-edit {
     color: #4E5166;
+}
+
+.fa-user-edit:hover {
+    color: #FD2D01;
 }

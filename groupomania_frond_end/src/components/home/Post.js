@@ -1,32 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+import { userService } from '@/_services/user.service';
+import { postService } from '@/_services/post.service';
+
 import './post.css'
-import iconUploadImages from '@/icons/icon_upload_image.svg'
 
 const Post = () => {
-    const [post, setPost] = useState('');
-    const [postPicture, setPostPicture] = useState('');
-    const [video, setVideo] = useState('');
-    //const [file, setFile] = useState()
+    const [user, setUser] = useState([])
+    const [post, setPost] = useState('')
+     //const [file, setFile] = useState()
 
+    const flag = useRef(false)
 
-    const handlePost = () => {
+     /* Information de l'utilisateur */
+     useEffect(() => {
+        if(flag.current === false) {
+            userService.getOneUser()
+                .then(res => {
+                    console.log(res.data)
+                    setUser(res.data)
+                })       
+                .catch(err => console.log(err))
+        }
 
-    }
+        return () => flag.current = true
+    }, [])
 
-    const handlePicture = (e) => {
-        setPostPicture()
-    }
+    /* Le userId */
+    let userId = user._id
+  
+    let pictureUser = user.profilePicture
 
+    /* Annule la publication du post */
     const handleCancel = () => {
-        setPost('');
-        setPostPicture('');
-        setVideo('');
-        //setFile('');
+        setPost('')
+    }
+
+    /* Création et envoie du post */
+    const handlePost = () => {
+        console.log({post, userId})
+        postService.createPost({post, userId})
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err))  
     }
 
     return (
         <div className='post'>
-            <div className='post_picture'></div>
+            <div className='post_picture'>
+                <img src={pictureUser} alt='User-profile-img'/>
+            </div>
             <div className='post_text'>
                 <textarea 
                     name='post'
@@ -35,26 +59,25 @@ const Post = () => {
                     onChange={(e) => setPost(e.target.value)}
                     value={post}
                 />
-                <div className='footer-post'>
+                <div className='footer-write-post'>
                     <div className='icon_upload-image'>
                         <label htmlFor='file'>
-                            <img src={iconUploadImages} alt='Icon upload images'/>
+                            <i className="fa-solid fa-download"></i>
                         </label>
-
+        
                         <input
                             type='file'
                             id='file'
                             name='file'
                             accept='.jpg, .jpeg, png'
-                            onChange={(e) => handlePicture(e)}
                         />
                     </div>
                     <div className='post-btns'>
-                        { post || postPicture || video.length > 20 ? (
-                            <button className='cancel' onClick={handleCancel}>Annuler</button>
+                        { post ? (
+                            <button className='cancel-post_btn' onClick={handleCancel}>Annuler</button>
                         ) : null}
                       
-                        <button className='send' onClick={handlePost}>Envoyer</button>
+                        <button className='send-post_btn' onClick={handlePost}>Envoyer</button>
                     </div>
                 </div>
             </div>

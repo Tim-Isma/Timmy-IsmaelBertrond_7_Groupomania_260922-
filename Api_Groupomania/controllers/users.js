@@ -59,7 +59,7 @@ exports.createUser = async (req, res) => {
         const userObject = req.body
         const user = new User ({
             ...userObject,
-            //profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
+            profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
         })
         await user.save()
         return res.status(201).json({ message: 'User Created !'})
@@ -70,21 +70,22 @@ exports.createUser = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-  
+    console.log('MARCEL')
     // Vérification de la présence du paramètre 'id' dans la requête //
-    if (!ObjectID.isValid(req.user)) {
-        return res.status(400).json({ message: `ID unknown: ${req.user} !` })
+    if (!ObjectID.isValid(req.params.id)) {
+        return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
     }
 
     try {
-        
+        console.log(req.body)
+        console.log("FILE", req.file)
         const userObject = req.file ? {
             ...req.body,
             profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
         } : {...req.body}
 
         // Recherche et vérification de l'utilisateur //
-        let userModify = await User.findOne({ _id: req.user })
+        let userModify = await User.findOne({ _id: req.params.id })
 
         if (userModify === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
@@ -93,8 +94,8 @@ exports.updateUser = async (req, res) => {
         // Mise à jour de l'utilisateur // 
         // User.updateOne(WHERE, DATA).
         await User.updateOne(
-            { _id: req.user }, 
-            {...userObject, _id: req.user}
+            { _id: req.params.id }, 
+            {...userObject, _id: req.params.id}
         )
 
         return res.status(200).json({ message: 'User Updated !' })
@@ -110,6 +111,23 @@ exports.deleteUser = (req, res) => {
         return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
     }
 
+    /*
+    User.findOne({ _id: req.params.id})
+        .then(user => {
+            if (user === null) {
+                res.status(404).json({ message: 'This user does not exist !' })
+            } else {
+                    User.deleteOne({_id: req.params.id})
+                        .then(() => { res.status(204).json({message: 'Delete User !'})})
+                        .catch(error => res.status(401).json({ error }))
+            }
+        })
+        .catch( error => {
+            res.status(500).json({ error });
+        })
+    */
+
+    
     User.findOne({ _id: req.params.id})
         .then(user => {
             if (user === null) {
@@ -126,7 +144,7 @@ exports.deleteUser = (req, res) => {
         .catch( error => {
             res.status(500).json({ error });
         })
-
+    
     /*
     try {
         let userDelete = await User.findOne({ _id: req.params.id })

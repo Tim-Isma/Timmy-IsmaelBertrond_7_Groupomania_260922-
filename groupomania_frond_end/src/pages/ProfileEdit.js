@@ -10,17 +10,27 @@ import Like from '@/components/profile/Like';
 
 import './profileedit.css'
 
-const Profile = () => {
-    const [profil, setProfil] = useState([])
+const ProfileEdit = () => {
+    const [user, setUser] = useState({})
+    // const [picture, setPicture] = useState({
+    //     image_profile: 'https://img2.freepng.fr/20180319/aeq/kisspng-computer-icons-google-account-user-profile-iconfin-png-icons-download-profile-5ab0301e0d78f3.2971990915214960940552.jpg'
+    // })
+    const [picture, setPicture] = useState('')
+    //const [imagee, setImagee] = useState('')
+
     const flag = useRef(false)
     let navigate = useNavigate()
 
+    let pictureUser = user.profilePicture
+    //const {image_profile} = picture
+
+    /* Information utilisateur */
     useEffect(() => {
         if(flag.current === false) {
             userService.getOneUser()
                 .then(res => {
                     console.log(res.data)
-                    setProfil(res.data)
+                    setUser(res.data)
                 })       
                 .catch(err => console.log(err))
         }
@@ -28,14 +38,44 @@ const Profile = () => {
         return () => flag.current = true
     }, [])
 
+    
     const onChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onChangeFile = (e) => {
+        console.log('ici')
+        //setImagee(e.target.file[0])
+        const reader = new FileReader()
+        
+        reader.onload = () => {
+            if(reader.readyState === 2) {
+                setPicture({image_profile: reader.result}) 
+            }
+            // ???
+        }
+        reader.readAsDataURL(e.target.files[0])
+
+        setPicture({
+            ...picture,
+            [e.target.name]: e.target.files[0]
+        })
         
     }
 
+    /* Modification des données utilisateur */
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log(profil)
-        userService.updateUser(profil)
+
+        const formData = new FormData();
+        //formData.append("image_profile", imagee);
+        formData.append("user", user);
+
+
+        userService.updateUser(user._id, formData)
             .then(res => {
                 console.log(res)
                 navigate('/admin/profile')
@@ -58,84 +98,93 @@ const Profile = () => {
             </div>
             <section className='profile-container'>
                 <div className='profile-user_container'>
-                    <form onSubmit={onSubmit} className='form'>
+                    <form onSubmit={onSubmit} className='form-edit'>
                         <div className='profile-user'>
                             <div className='upload-img_container'>
                                 <div>
-                                    <h3>Photo de profile</h3>
+                                    <h3 className='profil-title'>Photo de profile</h3>
                                     <div className='picture_container'>
-                                        Photo
+                                        <img src={pictureUser} alt='User-profile-img'/>
                                     </div>
                                 </div>
                                 <div>
-                                <label htmlFor='profilePicture' className='update-img_btn'>Modifier votre photo</label>
-                                <input className='file_upload'
-                                    type='file'
-                                    id='profilePicture'
-                                    name='profilePicture'
-                                    accept='.jpg, .jpeg, png'
-                                />
+                                    <label htmlFor='profilePicture' className='update-img_btn'>Modifier votre photo
+                                        <input
+                                            type='file'
+                                            id='profilePicture'
+                                            name='image_profile'
+                                            accept='.jpg, .jpeg, png'
+                                            onChange={()=> onChangeFile}
+                                            value={user.pictureProfile}
+                                        />
+                                    </label>
                                 </div>
                             </div>
                             <div className='edit-user_container'>
                                 <div>
-                                    <label htmlFor='name' className='label_container'>Nom:</label>
-                                    <input className='name-field_profile'
-                                        type='text' 
-                                        name='name'
-                                        value={profil.name}
-                                        onChange={onChange}
-                                    />
+                                    <label htmlFor='name' className='label_container'>Nom:
+                                        <input className='name-field_profile'
+                                            type='text' 
+                                            name='name'
+                                            value={user.name}
+                                            onChange={() => onChange}
+                                        />
+                                    </label>
                                     <div className='message_error'></div>
                                 </div>
                                 <div>
-                                    <label htmlFor='firstName' className='label_container'>Prénom:</label>
-                                    <input className='firstName-field_profile'
-                                        type='text' 
-                                        name='firstName'
-                                        value=''
-                                        onChange={onChange}
-                                    />
+                                    <label htmlFor='firstName' className='label_container'>Prénom:
+                                        <input className='firstName-field_profile'
+                                            type='text' 
+                                            name='firstName'
+                                            value={user.firstName}
+                                            onChange={() => onChange}
+                                        />
+                                    </label>
                                     <div className='message_error'></div>
                                 </div>
                                 <div>
-                                    <label htmlFor='pseudo' className='label_container'>Pseudo</label>
-                                    <input className='pseudo-field_profile'
-                                        type='text' 
-                                        name='pseudo'
-                                        value=''
-                                        onChange={onChange}
-                                    />
+                                    <label htmlFor='pseudo' className='label_container'>Pseudo:
+                                        <input className='pseudo-field_profile'
+                                            type='text' 
+                                            name='pseudo'
+                                            value={user.pseudo}
+                                            onChange={() => onChange}
+                                        />
+                                    </label>
                                     <div className='message_error'></div>
                                 </div>
                                 <div>
-                                    <label htmlFor='email' className='label_container'>Email</label>
-                                    <input className='email-field_profile'
-                                        type='text' 
-                                        name='email'
-                                        value=''
-                                        onChange={onChange}
-                                    />
+                                    <label htmlFor='email' className='label_container'>Email:
+                                        <input className='email-field_profile'
+                                            type='text' 
+                                            name='email'
+                                            value={user.email}
+                                            onChange={() => onChange}
+                                        />
+                                    </label>
                                     <div className='message_error'></div>
                                 </div>
                                 <div>
-                                    <label htmlFor='city' className='label_container'>Ville</label>
-                                    <input className='city-field_profile'
-                                        type='text' 
-                                        name='city'
-                                        value=''
-                                        onChange={onChange}
-                                    />
+                                    <label htmlFor='city' className='label_container'>Ville:
+                                        <input className='city-field_profile'
+                                            type='text' 
+                                            name='city'
+                                            value={user.city}
+                                            onChange={() => onChange}
+                                        />
+                                    </label>
                                     <div className='message_error'></div>
                                 </div>
                                 <div>
-                                    <label htmlFor='password' className='label_container'>Password</label>
-                                    <input className='password-field_profile'
-                                        type='text' 
-                                        name='password'
-                                        value=''
-                                        onChange={onChange}
-                                    />
+                                    <label htmlFor='password' className='label_container'>Password:
+                                        <input className='password-field_profile'
+                                            type='text' 
+                                            name='password'
+                                            value={user.password}
+                                            onChange={() => onChange}
+                                        />
+                                    </label>
                                     <div className='message_error'></div>
                                 </div>
                                 <div>
@@ -158,4 +207,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default ProfileEdit;

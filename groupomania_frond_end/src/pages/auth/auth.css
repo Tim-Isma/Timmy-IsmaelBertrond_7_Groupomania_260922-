@@ -20,8 +20,8 @@
     margin: 0 auto;
 }
 
-form {
-    margin: 0 auto;
+.form-sign {
+    width: 300px;
     padding: 20px 0px;
 }
 
@@ -41,6 +41,12 @@ label {
     color: #4E5166;
     font-size: 16px;
     background-color: transparent;
+}
+
+.password_container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .password-field {
@@ -115,39 +121,106 @@ label {
     cursor: pointer;
 }
 
-/* Show password sign-in */
+/* Show password */
 
-.show-password-btn-in_container {
+.show-password-btn_container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    margin-left: 8px;
+    width: 38px;
+    margin-bottom: 10px;
 }
 
-.show-password-btn-in {
-    width: 55px;
+.show-password-btn {
+    color: #4E5166;
+    width: 30px;
     height: 30px;
-    border-radius: 10px;
-    background-color:rgb(195, 31, 10);
+    border: 0;
+    background-color: transparent;
 }
 
+/* Upload profilepicture sign-up */
 
-/* Show password sign-up */
+.profile-picture_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
 
-.show-password-btn-up_container {
+.profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profile-picture_title {
+    width: 160px;
+    border-radius: 20px 10px 0px 0px;
+    border: solid 1px #4E5166;
+    background-color: #4E5166;
+}
+
+.profile-picture_title h3 {
+    color: #FFD7D7;
+    font-size: 12px;
+}
+
+.upload-picture {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    margin-bottom: 92px;
-    margin-left: 8px;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border: solid 1px #4E5166;
+    border-radius: 0px 10px 0px 0px;
+    margin: 0;
+    background-color: transparent;
 }
 
-.show-password-btn-up {
-    width: 55px;
-    height: 30px;
-    border-radius: 10px;
-    background-color:rgba(195, 32, 10, 0.5);
+.upload-picture img {
+    width: 200px;
+    height: 200px;
+    border-radius: 0px 8px 0px 0px;
+    object-fit: cover;
+}
+
+#profilePicture[type = "file"]{
+    display: none;
+}
+
+.upload_container {
+    display: flex;
+    justify-content: flex-start;
+    width: 202px;
+    height: 51px;
+}
+
+.upload-picture_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color:  #4E5166;
+    width: 65px;
+    height: 50px;
+    border-left: solid 1px #4E5166;
+    border-bottom: solid 1px #4E5166;
+    border-radius: 0px 0px 0px 15px;
+    cursor: pointer;
+}
+
+.upload_container p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:  #FFD7D7;
+    font-size: 15px;
+    font-weight: 500;
+    height: 51px;
+    padding: 0px 5px;
+    margin: 0;
+    background-color: #4E5166;
 }
 
 /* Errors */
