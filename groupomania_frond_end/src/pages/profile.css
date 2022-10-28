@@ -41,7 +41,7 @@
 
 .profile-user {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 50% 65% 10%;
 }
 
 .upload-img_container {

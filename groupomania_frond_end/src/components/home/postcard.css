@@ -1,0 +1,136 @@
+.posts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 500px;
+    height: auto;
+    margin: 10px 0px;
+    border-radius: 40px;
+    border: solid 1px #4E5166;
+    background-color: #FFD7D7;
+}
+
+.post-user_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    border: dashed 1px #4E5166;
+}
+
+.post-sent {
+    width: 400px;
+    margin: 0;
+}
+
+.form-post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.post-area {
+    text-align: center;
+    width: 380px;
+    height: 110px;
+    border: solid 1px #4E5166;
+    background-color: rgba(253, 43, 1, 0.4);
+}
+
+.post-update_btns {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 400px;
+}
+
+
+.cancel-post_btn {
+    color: #FFD7D7;
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #4E5166;
+}
+
+.update-post_btn {
+    color:  #FFD7D7;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #4E5166;
+}
+
+.footer-post_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 0.5px #4E5166;
+}
+
+.edit-post_btn {
+    color: #4E5166;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.like-post_btn {
+    color: #4E5166;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.like-post_btn:active {
+    color: #fe2b01;
+}
+
+.fa-thumbs-up {
+    margin-right: 5px;
+}
+
+.dislike-post_btn {
+    color: #4E5166;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.dislike-post_btn:active {
+    color: #fe2b01;
+}
+
+.fa-thumbs-down {
+    margin-right: 5px;
+}
+
+.trash-post_container {
+    color: #4E5166;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.trash-post_container:hover {
+    color: #fe2b01;
+}
+
+

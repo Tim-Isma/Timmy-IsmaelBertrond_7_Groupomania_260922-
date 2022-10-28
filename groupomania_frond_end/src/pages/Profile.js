@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { userService } from '@/_services/user.service';
 
 import Header from '@/components/header/Header';
-import Follow from '@/components/profile/Follow';
 import Nav from '@/components/header/Nav';
-import Like from '@/components/profile/Like';
 
 import './profile.css'
 
 const Profile = () => {
     const [user, setUser] = useState([])
+
     const flag = useRef(false)
+    let navigate = useNavigate()
 
     let pictureUser = user.profilePicture
 
@@ -29,6 +29,18 @@ const Profile = () => {
         return () => flag.current = true
     }, [])
 
+    /* Suppression de l'utilisateur */
+    const delUser = () => {
+        console.log(user)
+        userService.deleteUser(user)
+            .then(res => {
+                console.log(res)
+                //setUser((current) => current.filter(user => user.id !== userId))
+                navigate('/auth/sign-up')
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div>
             <Header/>
@@ -37,10 +49,11 @@ const Profile = () => {
                 <div className='profile_title'> 
                     <h1>Votre profile</h1>
                 </div>
-                <section>
-                    <Like/>
-                    <Follow/>
-                </section>
+                <div className='delete-btn_container'>
+                    <button className='delete-btn' onClick={() => delUser(user)}>
+                        <i className="fa-solid fa-user-xmark"></i>
+                    </button>
+                </div>
             </div>
             <section className='profile-container'>
                 <div className='profile-user_container'>

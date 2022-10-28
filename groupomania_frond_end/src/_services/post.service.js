@@ -12,20 +12,22 @@ let createPost = (post) => {
     return Axios.put('/posts', post)
 }
 
-let updatePost = (post) => {
-    return Axios.patch('/posts/'+post._id, post)
+let updatePost = (postId, userId, post) => {
+    return Axios.patch('/posts/'+postId, {userId: userId, post: post})
 }
 
-let deletePost = (post) => {
-    return Axios.delete('/posts/'+post._id, post)
+let deletePost = (postId, userId) => {
+    return Axios.delete('/posts/'+postId, {userId: userId})
 }
+
+/*///////////////////////////////////*/
 
 let likePost = (postId, userId) => {
     return Axios.put('/posts/like/'+postId, {userId: userId})
 }
 
-let dislikePost = (post) => {
-    return Axios.put('/posts/dislike/'+post._id, post)
+let dislikePost = (postId, userId) => {
+    return Axios.put('/posts/dislike/'+postId, {userId: userId})
 }
 
 export const postService = {

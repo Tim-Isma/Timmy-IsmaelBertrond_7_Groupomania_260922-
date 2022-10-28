@@ -4,27 +4,23 @@ import { Link, useNavigate  } from 'react-router-dom';
 import { userService } from '@/_services/user.service';
 
 import Header from '@/components/header/Header';
-import Follow from '@/components/profile/Follow';
 import Nav from '@/components/header/Nav';
-import Like from '@/components/profile/Like';
 
 import './profileedit.css'
 
 const ProfileEdit = () => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState([])
     // const [picture, setPicture] = useState({
     //     image_profile: 'https://img2.freepng.fr/20180319/aeq/kisspng-computer-icons-google-account-user-profile-iconfin-png-icons-download-profile-5ab0301e0d78f3.2971990915214960940552.jpg'
     // })
-    const [picture, setPicture] = useState('')
-    //const [imagee, setImagee] = useState('')
-
+   
     const flag = useRef(false)
     let navigate = useNavigate()
 
-    let pictureUser = user.profilePicture
+    //let pictureUser = user.profilePicture
     //const {image_profile} = picture
 
-    /* Information utilisateur */
+    /******************** Information Utilisateur ************************/
     useEffect(() => {
         if(flag.current === false) {
             userService.getOneUser()
@@ -38,7 +34,6 @@ const ProfileEdit = () => {
         return () => flag.current = true
     }, [])
 
-    
     const onChange = (e) => {
         setUser({
             ...user,
@@ -46,6 +41,19 @@ const ProfileEdit = () => {
         })
     }
 
+    /******************** Modification des données Utilisateur  ************************/
+    const onSubmit = (e) => {
+        e.preventDefault()
+        userService.updateUser(user._id, user)
+            .then(res => {
+                console.log(res)
+                navigate('/admin/profile')             
+            })
+            .catch(err => console.log(err))
+    }
+
+    /******************** Modification de la photo de profile Utilisateur  ************************/
+    /*
     const onChangeFile = (e) => {
         console.log('ici')
         //setImagee(e.target.file[0])
@@ -55,7 +63,6 @@ const ProfileEdit = () => {
             if(reader.readyState === 2) {
                 setPicture({image_profile: reader.result}) 
             }
-            // ???
         }
         reader.readAsDataURL(e.target.files[0])
 
@@ -65,15 +72,13 @@ const ProfileEdit = () => {
         })
         
     }
-
-    /* Modification des données utilisateur */
+    
     const onSubmit = (e) => {
         e.preventDefault()
 
         const formData = new FormData();
         //formData.append("image_profile", imagee);
         formData.append("user", user);
-
 
         userService.updateUser(user._id, formData)
             .then(res => {
@@ -82,6 +87,7 @@ const ProfileEdit = () => {
             })
             .catch(err => console.log(err))
     }
+    */
 
     return (
         <div>
@@ -91,10 +97,7 @@ const ProfileEdit = () => {
                 <div className='profile_title'> 
                     <h1>Votre profile</h1>
                 </div>
-                <section>
-                    <Like/>
-                    <Follow/>
-                </section>
+                
             </div>
             <section className='profile-container'>
                 <div className='profile-user_container'>
@@ -104,7 +107,7 @@ const ProfileEdit = () => {
                                 <div>
                                     <h3 className='profil-title'>Photo de profile</h3>
                                     <div className='picture_container'>
-                                        <img src={pictureUser} alt='User-profile-img'/>
+                                        
                                     </div>
                                 </div>
                                 <div>
@@ -114,8 +117,8 @@ const ProfileEdit = () => {
                                             id='profilePicture'
                                             name='image_profile'
                                             accept='.jpg, .jpeg, png'
-                                            onChange={()=> onChangeFile}
-                                            value={user.pictureProfile}
+                                            //onChange={()=> onChangeFile}
+                                            //value={user.pictureProfile}
                                         />
                                     </label>
                                 </div>
@@ -127,7 +130,7 @@ const ProfileEdit = () => {
                                             type='text' 
                                             name='name'
                                             value={user.name}
-                                            onChange={() => onChange}
+                                            onChange={onChange}
                                         />
                                     </label>
                                     <div className='message_error'></div>
@@ -138,7 +141,7 @@ const ProfileEdit = () => {
                                             type='text' 
                                             name='firstName'
                                             value={user.firstName}
-                                            onChange={() => onChange}
+                                            onChange={onChange}
                                         />
                                     </label>
                                     <div className='message_error'></div>
@@ -149,7 +152,7 @@ const ProfileEdit = () => {
                                             type='text' 
                                             name='pseudo'
                                             value={user.pseudo}
-                                            onChange={() => onChange}
+                                            onChange={onChange}
                                         />
                                     </label>
                                     <div className='message_error'></div>
@@ -160,7 +163,7 @@ const ProfileEdit = () => {
                                             type='text' 
                                             name='email'
                                             value={user.email}
-                                            onChange={() => onChange}
+                                            onChange={onChange}
                                         />
                                     </label>
                                     <div className='message_error'></div>
@@ -171,7 +174,7 @@ const ProfileEdit = () => {
                                             type='text' 
                                             name='city'
                                             value={user.city}
-                                            onChange={() => onChange}
+                                            onChange={onChange}
                                         />
                                     </label>
                                     <div className='message_error'></div>
@@ -182,7 +185,7 @@ const ProfileEdit = () => {
                                             type='text' 
                                             name='password'
                                             value={user.password}
-                                            onChange={() => onChange}
+                                            onChange={onChange}
                                         />
                                     </label>
                                     <div className='message_error'></div>

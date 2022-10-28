@@ -1,19 +1,29 @@
-.home {
-    display: grid;
-    grid-template-columns: 25% 65% 10%;
+.home_container {
+    display: flex;
+    background-color: aqua
 }
-  
+
+.home {
+    display: flex;
+    flex: 1;
+    background-color: blue;
+}
+
 .home_title {
+    flex: 3;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 140px;
+    background-color: chartreuse;
 }
   
 .delete-btn_container {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #FD2D01;
 }
 
 .delete-btn {
@@ -51,190 +61,17 @@
     margin: 20px 0px;
 }
 
-.posts {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 500px;
-    height: auto;
-    margin: 10px 0px;
-    border-radius: 40px;
-    border: solid 1px #4E5166;
-    background-color: #FFD7D7;
+/******************************************/
+
+@media screen and (min-width: 300px) and (max-width: 880px) {
+
+    .home_container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home_title {
+        flex: 6;
+    }
 }
-
-.post-user_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: auto;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 20px;
-    border: dashed 1px #4E5166;
-}
-
-.post-sent {
-    width: 400px;
-    margin: 0;
-}
-
-.form-post {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    height: 80px;
-    margin: 0;
-    padding: 0;
-    background-color: #FD2D01;
-}
-
-.footer-post_container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 400px;
-    height: auto;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: solid 0.5px #4E5166;
-}
-
-.edit-post_btn {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.like-post_btn {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.fa-thumbs-up {
-    margin-right: 5px;
-}
-
-.comment_btn {
-    border-radius: 20px 10px 20px 10px;
-    background-color: hsla(10, 99%, 50%, 0.400);
-    border: solid 0.5px #4E5166;
-    padding: 8px 15px;
-    cursor: pointer;
-}
-
-.dislike-post_btn {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.fa-thumbs-down {
-    margin-right: 5px;
-}
-
-.trash-post_container {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.comment-home {
-    margin-bottom: 20px;
-}
-
-
-/********** comment **********/
-
-.comments {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 500px;
-    height: auto;
-    margin: 10px 0px;
-    border-radius: 40px;
-    border: solid 1px #4E5166;
-    background-color: #FFD7D7;
-}
-
-.comment-user_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: auto;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 20px;
-    border: dashed 1px #4E5166;
-}
-
-.footer-comment_container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 400px;
-    height: auto;
-    border-top: solid 0.5px #4E5166;
-    padding: 10px 0px;
-}
-
-.edit-comment_btn {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.like-comment_btn {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.fa-thumbs-up {
-    margin-right: 5px;
-}
-
-.dislike-comment_btn {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.fa-thumbs-down {
-    margin-right: 5px;
-}
-
-.trash-comment_container {
-    color: #4E5166;
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-}
-
-.enable_comment-send {
-    margin: 10px;
-}
-
-.disable_comment-send {
-    display: none;
-    margin: 10px;
-}
-
-
-
-
 

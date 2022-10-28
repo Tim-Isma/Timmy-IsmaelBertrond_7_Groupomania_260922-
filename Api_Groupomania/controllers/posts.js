@@ -107,7 +107,7 @@ exports.deletePosts = (req, res) => {
     if (!req.body.userId) {
         return res.status(400).json({ message: `UserId unknown ${req.body.userId} !` })
     }
-
+    /*
     Post.findOne({ _id: req.params.id})
         .then(post => {
             if (post === null) {
@@ -124,13 +124,13 @@ exports.deletePosts = (req, res) => {
         .catch( error => {
             res.status(500).json({ error });
         })
-
-    /*
+    */
+    
     // Suppression du post //
     Post.deleteOne({ _id: req.params.id }) 
         .then(() => res.status(204).json({ message: 'Delete Post !' }))
         .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
-    */
+    
 }
 
 

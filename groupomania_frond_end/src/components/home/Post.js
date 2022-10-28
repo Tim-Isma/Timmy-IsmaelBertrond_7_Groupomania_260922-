@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { userService } from '@/_services/user.service';
 import { postService } from '@/_services/post.service';
@@ -11,6 +12,7 @@ const Post = () => {
      //const [file, setFile] = useState()
 
     const flag = useRef(false)
+    let navigate = useNavigate()
 
      /* Information de l'utilisateur */
      useEffect(() => {
@@ -42,6 +44,7 @@ const Post = () => {
         postService.createPost({post, userId})
             .then(res => {
                 console.log(res)
+                navigate('/admin/home') 
             })
             .catch(err => console.log(err))  
     }
