@@ -1,93 +1,75 @@
+/***** Profile Header *****/
+
 .profile_container {
-    display: grid;
-    grid-template-columns: 25% 49% 34%;
+    display: flex;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 3;
 }
 
 .profile_title {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 4;
     height: 140px;
 }
-  
-.profile_container section {
-    display: flex;
+
+.profile_title h1 {
+    color: #4E5166;
+    font-weight: 400;
+    padding: 15px;
 }
   
-/***************************************/
+/***** Btn-delete User *****/
 
-.profile-container {
+.delete-btn_container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-btn {
+    font-size: 20px;
+    color: #4E5166;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #FD2D01;
+}
+  
+/***** Info User *****/
+
+.profile_section {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 650px;
+    margin-top: 10px;
+    height: auto;
 }
-  
+
 .profile-user_container {
-    width: 650px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 500px;
     height: auto;
     border: solid 1px #4E5166;
     background-color: #FFD7D7;
     border-radius: 50px 20px 50px 20px ;
-    padding: 40px;
+    padding: 20px;
+    margin-bottom: 50px;
 }
 
-.profile-user {
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
-.upload-img_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.picture_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    border: solid 1px  #4E5166; 
-    border-radius: 20px;
-    background-color: transparent;
-}
-
-.profil-title {
-    color: #4E5166;
-}
-
-.picture_container img {
-    width: 200px;
-    height: 200px;
-    border-radius: 18px;
-    object-fit: cover;
-}
-
-.update-img_btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color:  #4E5166;
-    width: 180px;
-    height: 40px;
-    font-size: 16px;
-    margin-top: 20px;
-    border: solid 1px #4E5166;
-    border-radius: 30px 15px 30px 15px;
-    background-color: rgba(253, 43, 1, 0.5);
-    cursor: pointer;
-}
-
-#profilePicture[type = "file"]{
-    display: none;
-}
-
-/***************************************/
-
-
-.edit-user_container {
+.form-edit {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -172,11 +154,7 @@
     border-bottom: solid 0.5px #4E5166;
 }
 
-/***************************************/
-
-.edit-btn_container {
-    margin-top: 35px;
-}
+/***** Btn-edit *****/
 
 .edit-btn {
     width: 40px;
@@ -194,4 +172,58 @@
 
 .fa-user-edit:hover {
     color: #FD2D01;
+}
+
+/***** Btn-Valid Update *****/
+
+.submit-btn {
+    color:  #4E5166;
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    margin-top: 20px;
+    border: solid 1px #4E5166;
+    border-radius: 20px 10px 20px 10px;
+    background-color: rgba(253, 43, 1, 0.5);
+    cursor: pointer;
+}
+
+/******************** Media Query ********************/
+
+@media screen and (min-width: 100px) and (max-width: 880px) {
+    
+
+    .profile_container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile_title {
+        flex: 3;
+    }
+    
+    .delete-btn_container {
+        flex: 1;
+        height: 100px;
+        border-left: solid 0.5px #4E5166;
+    }
+
+    .profile-user_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .edit-btn_container {
+        margin-top: 30px;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+
+    .profile_title {
+        flex: 4;
+    }
 }

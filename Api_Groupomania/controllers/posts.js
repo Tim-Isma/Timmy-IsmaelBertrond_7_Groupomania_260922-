@@ -49,7 +49,7 @@ exports.createPosts = async (req, res) => {
         const postObject = req.body
         const postCreate = new Post ({
             ...postObject,
-            //picture: `${req.protocol}://${req.get('host')}/images/uploads/posts/${req.file.filename}`
+            picture: `${req.protocol}://${req.get('host')}/images/uploads/posts/${req.file.filename}`
         })
         await postCreate.save()
         return res.status(201).json({ message: 'Post Created !' })

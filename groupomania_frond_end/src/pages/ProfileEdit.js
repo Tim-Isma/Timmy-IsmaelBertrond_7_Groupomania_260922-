@@ -10,17 +10,15 @@ import './profileedit.css'
 
 const ProfileEdit = () => {
     const [user, setUser] = useState([])
-    // const [picture, setPicture] = useState({
-    //     image_profile: 'https://img2.freepng.fr/20180319/aeq/kisspng-computer-icons-google-account-user-profile-iconfin-png-icons-download-profile-5ab0301e0d78f3.2971990915214960940552.jpg'
-    // })
-   
+ 
     const flag = useRef(false)
     let navigate = useNavigate()
 
     //let pictureUser = user.profilePicture
     //const {image_profile} = picture
 
-    /******************** Information Utilisateur ************************/
+/******************** Récupération des informations de l'utilisateur ********************/
+
     useEffect(() => {
         if(flag.current === false) {
             userService.getOneUser()
@@ -41,7 +39,8 @@ const ProfileEdit = () => {
         })
     }
 
-    /******************** Modification des données Utilisateur  ************************/
+/******************** Modification des données Utilisateur  ************************/
+
     const onSubmit = (e) => {
         e.preventDefault()
         userService.updateUser(user._id, user)
@@ -52,6 +51,21 @@ const ProfileEdit = () => {
             .catch(err => console.log(err))
     }
 
+
+/******************** Suppression du compte utilisateur ********************/
+
+    const delUser = () => {
+        console.log(user)
+        userService.deleteUser(user)
+            .then(res => {
+                console.log(res)
+                //setUser((current) => current.filter(user => user.id !== userId))
+                navigate('/auth/sign-up')
+            })
+            .catch(err => console.log(err))
+    }
+    
+    
     /******************** Modification de la photo de profile Utilisateur  ************************/
     /*
     const onChangeFile = (e) => {
@@ -94,107 +108,89 @@ const ProfileEdit = () => {
             <Header/>
             <div className='profile_container'>
                 <Nav/>
-                <div className='profile_title'> 
-                    <h1>Votre profile</h1>
+                <div className='profile'>
+                    <div className='profile_title'> 
+                        <h1>Votre profile</h1>
+                    </div>
+                    <div className='delete-btn_container'>
+                        <button className='delete-btn' onClick={() => delUser(user)}>
+                            <i className="fa-solid fa-user-xmark"></i>
+                        </button>
+                    </div>
                 </div>
-                
             </div>
-            <section className='profile-container'>
+            <section className='profile_section'>
                 <div className='profile-user_container'>
                     <form onSubmit={onSubmit} className='form-edit'>
-                        <div className='profile-user'>
-                            <div className='upload-img_container'>
-                                <div>
-                                    <h3 className='profil-title'>Photo de profile</h3>
-                                    <div className='picture_container'>
-                                        
-                                    </div>
-                                </div>
-                                <div>
-                                    <label htmlFor='profilePicture' className='update-img_btn'>Modifier votre photo
-                                        <input
-                                            type='file'
-                                            id='profilePicture'
-                                            name='image_profile'
-                                            accept='.jpg, .jpeg, png'
-                                            //onChange={()=> onChangeFile}
-                                            //value={user.pictureProfile}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                            <div className='edit-user_container'>
-                                <div>
-                                    <label htmlFor='name' className='label_container'>Nom:
-                                        <input className='name-field_profile'
-                                            type='text' 
-                                            name='name'
-                                            value={user.name}
-                                            onChange={onChange}
-                                        />
-                                    </label>
-                                    <div className='message_error'></div>
-                                </div>
-                                <div>
-                                    <label htmlFor='firstName' className='label_container'>Prénom:
-                                        <input className='firstName-field_profile'
-                                            type='text' 
-                                            name='firstName'
-                                            value={user.firstName}
-                                            onChange={onChange}
-                                        />
-                                    </label>
-                                    <div className='message_error'></div>
-                                </div>
-                                <div>
-                                    <label htmlFor='pseudo' className='label_container'>Pseudo:
-                                        <input className='pseudo-field_profile'
-                                            type='text' 
-                                            name='pseudo'
-                                            value={user.pseudo}
-                                            onChange={onChange}
-                                        />
-                                    </label>
-                                    <div className='message_error'></div>
-                                </div>
-                                <div>
-                                    <label htmlFor='email' className='label_container'>Email:
-                                        <input className='email-field_profile'
-                                            type='text' 
-                                            name='email'
-                                            value={user.email}
-                                            onChange={onChange}
-                                        />
-                                    </label>
-                                    <div className='message_error'></div>
-                                </div>
-                                <div>
-                                    <label htmlFor='city' className='label_container'>Ville:
-                                        <input className='city-field_profile'
-                                            type='text' 
-                                            name='city'
-                                            value={user.city}
-                                            onChange={onChange}
-                                        />
-                                    </label>
-                                    <div className='message_error'></div>
-                                </div>
-                                <div>
-                                    <label htmlFor='password' className='label_container'>Password:
-                                        <input className='password-field_profile'
-                                            type='text' 
-                                            name='password'
-                                            value={user.password}
-                                            onChange={onChange}
-                                        />
-                                    </label>
-                                    <div className='message_error'></div>
-                                </div>
-                                <div>
-                                    <button className='submit-btn'>Valider votre profile</button>
-                                </div> 
-                            </div>
+                        <div>
+                            <label htmlFor='name' className='label_container'>Nom:
+                                <input className='name-field_profile'
+                                    type='text' 
+                                    name='name'
+                                    value={user.name}
+                                    onChange={onChange}
+                                />
+                            </label>
+                            <div className='message_error'></div>
                         </div>
+                        <div>
+                            <label htmlFor='firstName' className='label_container'>Prénom:
+                                <input className='firstName-field_profile'
+                                    type='text' 
+                                    name='firstName'
+                                    value={user.firstName}
+                                    onChange={onChange}
+                                />
+                            </label>
+                            <div className='message_error'></div>
+                        </div>
+                        <div>
+                            <label htmlFor='pseudo' className='label_container'>Pseudo:
+                                <input className='pseudo-field_profile'
+                                    type='text' 
+                                    name='pseudo'
+                                    value={user.pseudo}
+                                    onChange={onChange}
+                                />
+                            </label>
+                            <div className='message_error'></div>
+                        </div>
+                        <div>
+                            <label htmlFor='email' className='label_container'>Email:
+                                <input className='email-field_profile'
+                                    type='text' 
+                                    name='email'
+                                    value={user.email}
+                                    onChange={onChange}
+                                />
+                            </label>
+                            <div className='message_error'></div>
+                        </div>
+                        <div>
+                            <label htmlFor='city' className='label_container'>Ville:
+                                <input className='city-field_profile'
+                                    type='text' 
+                                    name='city'
+                                    value={user.city}
+                                    onChange={onChange}
+                                />
+                            </label>
+                            <div className='message_error'></div>
+                        </div>
+                        <div>
+                            <label htmlFor='password' className='label_container'>Password:
+                                <input className='password-field_profile'
+                                    type='text' 
+                                    name='password'
+                                    value={user.password}
+                                    onChange={onChange}
+                                />
+                            </label>
+                            <div className='message_error'></div>
+                        </div>
+                        <div>
+                            <button className='submit-btn'>Valider votre profile</button>
+                        </div> 
                     </form>
                     <div className='edit-btn_container'>
                         <Link to='/admin/profile'>

@@ -14,7 +14,7 @@ const Profile = () => {
     const flag = useRef(false)
     let navigate = useNavigate()
 
-    let pictureUser = user.profilePicture
+/******************** Récupération des informations de l'utilisateur ********************/
 
     useEffect(() => {
         if(flag.current === false) {
@@ -29,7 +29,8 @@ const Profile = () => {
         return () => flag.current = true
     }, [])
 
-    /* Suppression de l'utilisateur */
+/******************** Suppression du compte utilisateur ********************/
+
     const delUser = () => {
         console.log(user)
         userService.deleteUser(user)
@@ -46,42 +47,34 @@ const Profile = () => {
             <Header/>
             <div className='profile_container'>
                 <Nav/>
-                <div className='profile_title'> 
-                    <h1>Votre profile</h1>
-                </div>
-                <div className='delete-btn_container'>
-                    <button className='delete-btn' onClick={() => delUser(user)}>
-                        <i className="fa-solid fa-user-xmark"></i>
-                    </button>
+                <div className='profile'>
+                    <div className='profile_title'> 
+                        <h1>Votre profile</h1>
+                    </div>
+                    <div className='delete-btn_container'>
+                        <button className='delete-btn' onClick={() => delUser(user)}>
+                            <i className="fa-solid fa-user-xmark"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <section className='profile-container'>
+            <section className='profile_section'>
                 <div className='profile-user_container'>
                     <div className='profile-user'>
-                        <div className='upload-img_container'>
-                            <div>
-                                <h3 className='profil-title'>Photo de profile</h3>
-                                <div className='picture_container'>
-                                    <img src={pictureUser} alt='User-profile-img'/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='info-user_container'>
-                            <ul>
-                                <li className='description_list'>Nom:</li>
-                                <li className='info-user_list'>{user.name}</li>
-                                <li className='description_list'>Prénom:</li>
-                                <li className='info-user_list'>{user.firstName}</li>
-                                <li className='description_list'>Pseudo:</li>
-                                <li className='info-user_list'>{user.pseudo}</li>
-                                <li className='description_list'>Email:</li>
-                                <li className='info-user_list'>{user.email}</li>
-                                <li className='description_list'>Ville:</li>
-                                <li className='info-user_list'>{user.city}</li>
-                                <li className='description_list'>Password:</li>
-                                <li className='info-user_list'>{user.password}</li>
-                            </ul>
-                        </div>
+                        <ul>
+                            <li className='description_list'>Nom:</li>
+                            <li className='info-user_list'>{user.name}</li>
+                            <li className='description_list'>Prénom:</li>
+                            <li className='info-user_list'>{user.firstName}</li>
+                            <li className='description_list'>Pseudo:</li>
+                            <li className='info-user_list'>{user.pseudo}</li>
+                            <li className='description_list'>Email:</li>
+                            <li className='info-user_list'>{user.email}</li>
+                            <li className='description_list'>Ville:</li>
+                            <li className='info-user_list'>{user.city}</li>
+                            <li className='description_list'>Password:</li>
+                            <li className='info-user_list'>{user.password}</li>
+                        </ul>
                     </div>
                     <div className='edit-btn_container'>
                         <Link to='/admin/profile/edit'>

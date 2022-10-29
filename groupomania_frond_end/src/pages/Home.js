@@ -12,16 +12,14 @@ import './home.css'
 
 const Home = () => {
     const [user, setUser] = useState([])
-
     const [posts, setPosts] = useState([])
  
     //const[ updatePost, setUpdatePost] = useState()
     const flag = useRef(false)
     let navigate = useNavigate()
     
-/******************** User ********************/
+/******************** Récupération des informations de l'utilisateur ********************/
 
-    /* Information utilisateur */
     useEffect(() => {
         if(flag.current === false) {
             userService.getOneUser()
@@ -35,7 +33,8 @@ const Home = () => {
         return () => flag.current = true
     }, [])
 
-    /* Suppression de l'utilisateur */
+/******************** Suppression du compte utilisateur ********************/
+
     const delUser = () => {
         console.log(user)
         userService.deleteUser(user)
@@ -47,23 +46,7 @@ const Home = () => {
             .catch(err => console.log(err))
     }
 
-/******************** Post de l'utilisateur ********************/
-
- 
-
-    let userId = user._id
-    console.log(userId)
-
-    /*
-    const onChange = (e) => {
-        setPosts({
-            ...posts,
-            [e.target.name]: e.target.value
-        })
-    }
-    */
-
-/******************** Affichage Post ************************/
+/******************** Affichage des Posts ************************/
 
     useEffect(() => {
         if(flag.current === false) {
@@ -98,7 +81,7 @@ const Home = () => {
                 <div className='home_post'>
                     <Post/>
                 </div>
-                <div className='post_container'>
+                <div className='post-wall_container'>
                     {
                         posts.map((post, index) => (
                             <PostCard post={post} user={user} key={index}/>

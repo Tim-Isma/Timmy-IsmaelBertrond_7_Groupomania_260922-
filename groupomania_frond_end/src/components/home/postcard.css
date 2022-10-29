@@ -11,8 +11,9 @@
     background-color: #FFD7D7;
 }
 
-.post-user_container {
+.posts_container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: auto;
@@ -23,12 +24,12 @@
     border: dashed 1px #4E5166;
 }
 
-.post-sent {
+.post_sent {
     width: 400px;
     margin: 0;
 }
 
-.form-post {
+.form-post_edit {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,12 +40,36 @@
     padding: 0;
 }
 
-.post-area {
+.post-display {
     text-align: center;
     width: 380px;
     height: 110px;
+    outline: none;
+    resize: none;
     border: solid 1px #4E5166;
     background-color: rgba(253, 43, 1, 0.4);
+    margin-top: 10px;
+}
+
+.footer_post-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 370px;
+}
+
+.icon_upload-image {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.fa-download {
+    color: #4E5166;
+}
+
+.fa-download:hover {
+    color: #fe2b01;
 }
 
 .post-update_btns {
@@ -133,4 +158,59 @@
     color: #fe2b01;
 }
 
+/******************** Media Query ********************/
+
+@media screen and (min-width: 300px) and (max-width: 880px) {
+    
+    
+}
+
+@media screen and (max-width: 600px) {
+
+    .posts {
+        width: 350px;
+    }
+
+    .posts_container {
+        width: 250px;
+        height: auto;
+    }
+
+    .post_sent {
+        width: 250px;
+        margin: 0;
+    }
+
+    .form-post_edit {
+        width: 250px;
+    }
+
+    .post-display {
+        width: 250px;
+        height: 200px;
+    }
+
+    .footer_post-edit {
+        width: 250px;
+    }
+
+    .footer-post_container {
+        width: 250px;
+    }
+
+    /*
+    .post_container {
+        width: 350px;
+    }
+
+    #post {
+        width: 250px;
+        height: 150px;
+    }
+   
+    .footer_post {
+        width: 250px;
+    }
+    */
+}
 
