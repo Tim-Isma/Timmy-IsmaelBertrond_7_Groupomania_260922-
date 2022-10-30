@@ -49,7 +49,7 @@ exports.createPosts = async (req, res) => {
         const postObject = req.body
         const postCreate = new Post ({
             ...postObject,
-            picture: `${req.protocol}://${req.get('host')}/images/uploads/posts/${req.file.filename}`
+            picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
         })
         await postCreate.save()
         return res.status(201).json({ message: 'Post Created !' })
@@ -74,7 +74,7 @@ exports.updatePosts = async (req, res) => {
 
         const postObject = req.file ? {
             ...req.body,
-            picture: `${req.protocol}://${req.get('host')}/images/uploads/posts/${req.file.filename}`
+            picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
         } : {...req.body}
 
         // Recherche du post et vérification //
@@ -102,19 +102,20 @@ exports.deletePosts = (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
     }
-
+    /*
     // Vérification de la présence du userId dans le corps de la requête //
     if (!req.body.userId) {
         return res.status(400).json({ message: `UserId unknown ${req.body.userId} !` })
     }
+    */
     /*
     Post.findOne({ _id: req.params.id})
         .then(post => {
             if (post === null) {
                 res.status(404).json({ message: 'This user does not exist !' })
             } else {
-                const filename = post.picture.split('/images/uploads/posts/') [1]
-                fs.unlink(`images/uploads/posts/${filename}`, () => {
+                const filename = post.picture.split('/images/post/') [1]
+                fs.unlink(`images/post/${filename}`, () => {
                     Post.deleteOne({_id: req.params.id})
                         .then(() => { res.status(204).json({message: 'Delete Post !'})})
                         .catch(error => res.status(401).json({ error }))

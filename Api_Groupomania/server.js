@@ -27,7 +27,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 
 const user_router = require('./routes/users')
 const post_router = require('./routes/posts')
-const comment_router = require('./routes/comments')
 
 const auth_router = require('./routes/auth')
 
@@ -38,7 +37,6 @@ app.get('/', (req, res) => res.send('You are connected!'))
 
 app.use('/users', user_router)  
 app.use('/posts', checkTokenMiddleware, post_router)  
-app.use('/comments', checkTokenMiddleware, comment_router) 
 
 app.use('/auth', auth_router)
 

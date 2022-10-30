@@ -2,7 +2,6 @@
 
 const express = require('express')
 const userControllers = require('../controllers/users')
-const upload = require('../middlewares/multer-config').single('image_profile')
 
 const checkTokenMiddleware = require('../middlewares/checking_JsonWebToken')
 
@@ -20,19 +19,10 @@ router.get('/', checkTokenMiddleware, userControllers.getAllUsers)
 
 router.get('/me', checkTokenMiddleware, userControllers.getOneUser)
 
-router.put('/', upload, userControllers.createUser)
+router.put('/', userControllers.createUser)
 
-router.patch('/:id', checkTokenMiddleware, upload, userControllers.updateUser)
+router.patch('/:id', checkTokenMiddleware, userControllers.updateUser)
 
-router.delete('/:id', checkTokenMiddleware, upload, userControllers.deleteUser)
-
-router.put('/like/:id', checkTokenMiddleware, userControllers.like)
-
-router.put('/unlike/:id', checkTokenMiddleware, userControllers.unlike)
-
-router.put('/follow/:id', checkTokenMiddleware, userControllers.follow)
-
-router.put('/unfollow/:id', checkTokenMiddleware, userControllers.unfollow)
-
+router.delete('/:id', checkTokenMiddleware, userControllers.deleteUser)
 
 module.exports = router

@@ -3,7 +3,7 @@
 const express = require('express')
 const postControllers = require('../controllers/posts')
 
-const upload = require('../middlewares/multer-config').single('image_post')
+const upload = require('../middlewares/multer-config')
 
 // Récupération du router d'express. //
 

@@ -14,20 +14,55 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 420px;
     height: auto;
     border: solid 1px #4E5166;
     border-radius: 10px;
-    background-color: hsla(10, 99%, 50%, 0.5);
+    background-color: #4E5166;
+    border: solid 1px #fe2b01;
 }
 
 #post {
-    width: 400px;
+    width: 370px;
     height: 60px;
+    color: #4E5166;
     outline: none;
     resize: none;
     padding: 10px;
     margin-top: 10px;
-    border: solid 1px #4E5166;
+    border-radius: 20px;
+    border: solid 1px #fe2b01;
+    background-color: #FFD7D7;
+}
+
+.post-picture {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+    border-radius: 20px;
+    border: solid 1px #fe2b01;
+    background-color: #FFD7D7;
+}
+
+.post-picture img {
+    width: 370px;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    border: dashed 1px #fe2b01;
+    object-fit: cover;
+}
+
+.description_post-picture {
+    text-align: left;
+    width: 350px;
+    height: auto;
+    overflow-wrap: break-word;
+    margin: 0;
+    padding: 10px 10px 5px 10px;
+    color: #4E5166;
 }
 
 .footer_post {

@@ -1,7 +1,6 @@
 // Import des modules //
 
 const bcrypt = require('bcrypt')
-const fs = require('fs')
 const User = require('../models/user')
 
 const ObjectID = require("mongoose").Types.ObjectId;
@@ -77,10 +76,12 @@ exports.updateUser = async (req, res) => {
     }
 
     try {
+        /*
         const userObject = req.file ? {
             ...req.body,
             profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
         } : {...req.body}
+        */
 
         // Recherche et vérification de l'utilisateur //
         let userModify = await User.findOne({ _id: req.params.id })
@@ -114,130 +115,7 @@ exports.deleteUser = (req, res) => {
 }
 
 
-///////////////////////////////////////////////////
 
-exports.like = async (req, res) => {
 
-    // Vérification des 'ID' //
-    if (!ObjectID.isValid(req.params.id)) {
 
-        return res.status(400).json({ message: `Liker ID unknown: ${req.params.id} !` }) 
-    } else if (!ObjectID.isValid(req.body.userId)){
 
-        return res.status(400).json({ message: `Liking ID unknown: ${req.body.userId} !` })
-        
-    // Vérification que les 'ID' ne soient pas identiques //
-    } else if (req.params.id === req.body.userId) {
-        
-        return res.status(403).json({ message: `You can't like yourself !`})
-    } 
-    try {
-        // Recherche et vérification de l'utilisateur //
-        const user = await User.findById(req.params.id)
-
-        // Vérification si l'utilisateur a déjà liker le profile //
-        if (!user.likesProfile.includes(req.body.userId)) {
-            await user.updateOne({ $push: { likesProfile: req.body.userId } })
-            return res.status(200).json({ message: 'You like this profile !' }) 
-        } else {
-            return res.status(403).json({ message: 'You allready like this user !'})
-        }
-    } catch (err) {
-        return res.status(500).json({ message: 'Database Error !', error: err })
-    }
-}
-
-exports.unlike = async (req, res) => {
-
-    // Vérification des 'ID' //
-    if (!ObjectID.isValid(req.params.id)) {
-
-        return res.status(400).json({ message: `Liker ID unknown: ${req.params.id} !` }) 
-
-    } else if (!ObjectID.isValid(req.body.userId)){
-
-        return res.status(400).json({ message: `Liking ID unknown: ${req.body.userId} !` }) 
-    // Vérification que les 'ID' ne soient pas identiques //
-    } else if (req.params.id === req.body.userId) {
-        
-        return res.status(403).json({ message: `You can't unlike yourself !`})
-    }
-    try {
-        // Recherche et vérification de l'utilisateur //
-        const user = await User.findById(req.params.id)
-        // Vérification si l'utilisateur a déjà liker le profile //
-        if (user.likesProfile.includes(req.body.userId)) {
-            await user.updateOne({ $pull: { likesProfile: req.body.userId } })
-            return res.status(200).json({ message: `You don't like this profile !` }) 
-        } else {
-            return res.status(403).json({ message: 'You allready unlike this user !'})
-        }
-        
-    } catch (err) {
-        return res.status(500).json({ message: 'Database Error !', error: err })
-    }
-}
-
-exports.follow = async (req, res) => {
-
-    // Vérification des 'ID' //
-    if (!ObjectID.isValid(req.params.id)) {
-
-        return res.status(400).json({ message: `Follower ID unknown: ${req.params.id} !` }) 
-
-    } else if (!ObjectID.isValid(req.body.userId)){
-
-        return res.status(400).json({ message: `Following ID unknown: ${req.body.userId} !` }) 
-    // Vérification que les 'ID' ne soient pas identiques //
-    } else if (req.params.id === req.body.userId) {
-        
-        return res.status(403).json({ message: `You can't follow yourself !`})
-    }
-
-    try {
-        // Recherche et vérification de l'utilisateur //
-        const user = await User.findById(req.params.id)
-        const currentUser = await User.findById(req.body.userId)
-        // Vérification si l'utilisateur a déjà follow le profile //
-        if (!user.followers.includes(req.body.userId)) {
-            await user.updateOne({ $push: { followers: req.body.userId } })
-            await currentUser.updateOne({ $push: { following: req.params.id } })
-            return res.status(200).json({ message: 'You are following this user !' }) 
-        } else {
-            return res.status(403).json({ message: 'You allready follow this user !'})
-        }
-    } catch (err) {
-        return res.status(500).json({ message: 'Database Error !', error: err })
-    }
-}
-
-exports.unfollow = async (req, res) => {
-
-    // Vérification des 'ID' //
-    if (!ObjectID.isValid(req.params.id)) {
-
-        return res.status(400).json({ message: `Follower ID unknown: ${req.params.id}` }) 
-
-    } else if (!ObjectID.isValid(req.body.userId)){
-
-        return res.status(400).json({ message: `Following ID unknown: ${req.body.userId}` }) 
-    // Vérification que les 'ID' ne soient pas identiques //
-    } else if (req.params.id === req.body.userId) {
-        
-        return res.status(403).json({ message: `You can't follow yourself`})
-    }    
-    try {
-        // Vérification si l'utilisateur a déjà follow le profile //
-        const user = await User.findById(req.params.id)
-        const currentUser = await User.findById(req.body.userId)
-        if (user.followers.includes(req.body.userId)) {
-            await user.updateOne({ $pull: { followers: req.body.userId } })
-            await currentUser.updateOne({ $pull: { following: req.params.id } })
-            return res.status(200).json({ message: 'You are not following this user' }) 
-        } else {
-            return res.status(403).json({ message: 'You allready follow this user !'})
-        }
-    } catch (err) {
-        return res.status(500).json({ message: 'Database Error', error: err })
-    }
-}

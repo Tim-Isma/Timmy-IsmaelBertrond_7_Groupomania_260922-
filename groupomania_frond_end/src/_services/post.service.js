@@ -16,8 +16,8 @@ let updatePost = (postId, userId, post) => {
     return Axios.patch('/posts/'+postId, {userId: userId, post: post})
 }
 
-let deletePost = (postId, userId) => {
-    return Axios.delete('/posts/'+postId, {userId: userId})
+let deletePost = (post) => {
+    return Axios.delete('/posts/'+post._id)
 }
 
 /*///////////////////////////////////*/

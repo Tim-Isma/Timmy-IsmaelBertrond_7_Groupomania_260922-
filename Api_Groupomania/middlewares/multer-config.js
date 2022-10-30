@@ -5,9 +5,7 @@ const path = require('path')
 const storage = multer.diskStorage({
      
         destination: (req, file, callback) => {
-            if (file.fieldname === "image_profile") callback (null, "./images/uploads/profiles")
-            else if (file.fieldname === "image_post") callback (null, "./images/uploads/posts")
-            else if (file.fieldname === "image_comment") callback (null, "./images/uploads/comments")
+            file.fieldname === "image", callback (null, "./images/post")
         },
 
         filename: (req, file, callback) => {
@@ -28,6 +26,6 @@ fileFilter = (req, file, callback) => {
     }
 }
 
-upload = multer({storage: storage, fileFilter: fileFilter, limits: { fileSize: 1000000 }})//.fields([ { name: 'image_profile'}, { name: 'image_post'}, { name: 'image_comment'} ])
+upload = multer({storage: storage, fileFilter: fileFilter, limits: { fileSize: 1000000 }}).single('image')
 
 module.exports = upload

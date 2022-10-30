@@ -83,7 +83,7 @@ const PostCard = ({post, user}) => {
         console.log(udPost._id, udPost.userId)
         console.log(post._id, post.userId)
         console.log(udPost)
-        postService.deletePost(udPost._id, udPost.userId)
+        postService.deletePost(udPost)
             .then(res => {
                 console.log(res)
                 //setDeletePost((current) => current.filter(user => user.id !== userId))
@@ -114,7 +114,7 @@ const PostCard = ({post, user}) => {
                                     <input
                                         type='file'
                                         id='file'
-                                        name='file'
+                                        name='image'
                                         accept='.jpg, .jpeg, png'
                                     />
                                 </div>
