@@ -58,7 +58,6 @@ exports.createUser = async (req, res) => {
         const userObject = req.body
         const user = new User ({
             ...userObject,
-            //profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
         })
         await user.save()
         return res.status(201).json({ message: 'User Created !'})
@@ -76,13 +75,9 @@ exports.updateUser = async (req, res) => {
     }
 
     try {
-        /*
-        const userObject = req.file ? {
-            ...req.body,
-            profilePicture: `${req.protocol}://${req.get('host')}/images/uploads/profiles/${req.file.filename}`
-        } : {...req.body}
-        */
-
+        
+        const userObject = req.body 
+           
         // Recherche et vérification de l'utilisateur //
         let userModify = await User.findOne({ _id: req.params.id })
 
@@ -110,7 +105,7 @@ exports.deleteUser = (req, res) => {
     }
 
     User.deleteOne({ _id: req.params.id }) 
-    .then(() => res.status(204).json({ message: 'Delete Post !' }))
+    .then(() => res.status(204).json({ message: 'Delete User !' }))
     .catch(err => res.status(500).json({ message: 'Database Error', error: err })) 
 }
 

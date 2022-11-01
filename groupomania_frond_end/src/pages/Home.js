@@ -24,7 +24,7 @@ const Home = () => {
         if(flag.current === false) {
             userService.getOneUser()
                 .then(res => {
-                    console.log(res.data)
+                    //console.log(res.data)
                     setUser(res.data)
                 })       
                 .catch(err => console.log(err))
@@ -39,7 +39,7 @@ const Home = () => {
         console.log(user)
         userService.deleteUser(user)
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 //setUser((current) => current.filter(user => user.id !== userId))
                 navigate('/auth/sign-up')
             })
@@ -52,7 +52,7 @@ const Home = () => {
         if(flag.current === false) {
             postService.getAllPosts()
                 .then(res => {
-                    console.log(res.data)
+                    //console.log(res.data)
                     setPosts(res.data)
                 })
                 .catch(err => console.log(err))
@@ -84,7 +84,7 @@ const Home = () => {
                 <div className='post-wall_container'>
                     {
                         posts.map((post, index) => (
-                            <PostCard post={post} user={user} key={index}/>
+                            <PostCard post={post} user={user} key={index} manager={setPosts}/>
                         ))
                     }
                 </div>

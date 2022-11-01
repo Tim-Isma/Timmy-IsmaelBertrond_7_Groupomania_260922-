@@ -1,4 +1,5 @@
 import Axios from './caller.service'
+import jwt_decode from 'jwt-decode'
 
 let login = (credentials) => {
     return Axios.post('/auth/login', credentials)
@@ -23,6 +24,10 @@ let getToken = () => {
     return localStorage.getItem('token')
 }
 
+let info = () => {
+    return jwt_decode(getToken())
+}
+
 export const accountService = {
-    login, saveToken, logout, isLogged, getToken
+    login, saveToken, logout, isLogged, getToken, info
 }

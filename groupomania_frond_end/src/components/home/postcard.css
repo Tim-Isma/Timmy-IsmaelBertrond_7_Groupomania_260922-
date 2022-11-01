@@ -29,6 +29,19 @@
     margin: 0;
 }
 
+.post--img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.post--img img{
+    width: 350px;
+    height: auto;
+    border-radius: 20px;
+}
+
 .form-post_edit {
     display: flex;
     flex-direction: column;
@@ -72,13 +85,16 @@
     color: #fe2b01;
 }
 
+#imagep2[type='file'] {
+    display: none;
+}
+
 .post-update_btns {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 400px;
 }
-
 
 .cancel-post_btn {
     color: #FFD7D7;

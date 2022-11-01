@@ -4,18 +4,15 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const mongoose = require('mongoose')
+const helmet = require('helmet')
 
 const checkTokenMiddleware = require('./middlewares/checking_JsonWebToken')
 
 // Initialisation de l'API. //
 
 const app = express()
-
-app.use(cors({
-    origin: "*",
-    methods: "GET, POST, PUT, PATCH, DELETE, OPTION",
-    allowedHeaders: "Origin, X-Requested-With, x-access-token, role, Content, Accept, Content-Type, Authorization"
-}))
+app.use(cors())
+app.use(helmet.xssFilter())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -23,7 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
-// Import des modules de routage. //
+// Import des modules de routage. ///images/post/microphone-g19a002ab8_1920.jpg1
 
 const user_router = require('./routes/users')
 const post_router = require('./routes/posts')

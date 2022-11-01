@@ -8,7 +8,7 @@ const ObjectID = require("mongoose").Types.ObjectId;
 // Routage de la ressource post //
 
 exports.getAllPosts = (req, res) => {
-    Post.find()
+    Post.find().sort({_id:-1})
         .then(posts => res.status(200).json(posts))
         .catch(err => res.status(500).json({ message: 'Database Error !', error: err }))
 }
@@ -46,10 +46,15 @@ exports.createPosts = async (req, res) => {
 
     try {
         // Création du post //
-        const postObject = req.body
+        //const postObject = req.body
+    
+        const postObject = req.file ? {
+            ...req.body,
+            picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
+        } : {...req.body} 
+
         const postCreate = new Post ({
             ...postObject,
-            picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
         })
         await postCreate.save()
         return res.status(201).json({ message: 'Post Created !' })
@@ -69,30 +74,51 @@ exports.updatePosts = async (req, res) => {
     if (!req.body.userId) {
         return res.status(400).json({ message: `UserId unknown: ${req.body.userId} !` })
     }
-   
+
     try {
 
+        //1 Récup du post
+        //2 isole url image
+        //3 If req.file => alors supprimer l'ancien fs.unlink("/images/post/${nom_image}") // sinon aller au 4
+        //4 Mettre à jour le post
+        
+        // Recherche du post et vérification //
+        let post = await Post.findOne({ _id: req.params.id })
+        
+        if (post === null) {
+            return res.status(404).json({ message: 'This user does not exist !' })
+        }
+        
+        let picture = `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`;
+
+        if (req.file) {
+            const filename = post.picture.split('/images/post/') [1]
+            fs.unlink(`images/post/${filename}`, (err) => {
+                if(err) {
+                    console.log(err)
+                } else {
+                    console.log('delete')
+                }       
+            });
+            picture = `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`;
+        }
+        /*
         const postObject = req.file ? {
             ...req.body,
             picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
         } : {...req.body}
-
-        // Recherche du post et vérification //
-        let postModify = await Post.findOne({ _id: req.params.id })
+        */
+        const postObject = req.body
         
-        if (postModify === null) {
-            return res.status(404).json({ message: 'This user does not exist !' })
-        }
-
         // Mise à jour du post // 
         await Post.updateOne(
-            { _id: req.params.id }, 
-            {...postObject, _id: req.params.id}
+            { _id: req.params.id },
+            {...postObject, picture: picture },
         )
-
+    
         return res.json({ message: 'Post Updated !' })
     } catch (err) {
-        return res.status(500).json({ mesage: 'Database Error !', error: err })
+        return res.status(500).json({ message: 'Database Error !', error: err })
     }
 }
 
@@ -102,36 +128,30 @@ exports.deletePosts = (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
     }
-    /*
-    // Vérification de la présence du userId dans le corps de la requête //
-    if (!req.body.userId) {
-        return res.status(400).json({ message: `UserId unknown ${req.body.userId} !` })
-    }
-    */
-    /*
+
     Post.findOne({ _id: req.params.id})
         .then(post => {
             if (post === null) {
-                res.status(404).json({ message: 'This user does not exist !' })
-            } else {
-                const filename = post.picture.split('/images/post/') [1]
-                fs.unlink(`images/post/${filename}`, () => {
-                    Post.deleteOne({_id: req.params.id})
-                        .then(() => { res.status(204).json({message: 'Delete Post !'})})
-                        .catch(error => res.status(401).json({ error }))
-                });
-            }
+                return res.status(404).json({ message: 'This post does not exist !' })
+            } 
+
+            // Vérification si action permise (user ou admin)
+            if(post.userId !== req.user || req.user === process.env.AID){
+                return res.status(401).json({message: 'This action is not permitted'})
+            } 
+
+            
+            const filename = post.picture.split('/images/post/') [1]
+            fs.unlink(`images/post/${filename}`, () => {
+                Post.deleteOne({ _id: req.params.id })
+                    .then(() => res.status(204).json({ message: 'Delete Post !' }))
+                    .catch(err => res.status(500).json({ message: 'Database Error', error: err })) 
+            }) 
+          
         })
         .catch( error => {
             res.status(500).json({ error });
-        })
-    */
-    
-    // Suppression du post //
-    Post.deleteOne({ _id: req.params.id }) 
-        .then(() => res.status(204).json({ message: 'Delete Post !' }))
-        .catch(err => res.status(500).json({ message: 'Database Error', error: err }))
-    
+        })    
 }
 
 
@@ -240,3 +260,22 @@ exports.dislike = async (req, res) => {
         return res.status(500).json({ message: 'Database Error !', error: err })
     }
 }
+
+ /*
+    Post.findOne({ _id: req.params.id})
+        .then(post => {
+            if (post === null) {
+                res.status(404).json({ message: 'This user does not exist !' })
+            } else {
+                const filename = post.picture.split('/images/post/') [1]
+                fs.unlink(`images/post/${filename}`, () => {
+                    Post.deleteOne({_id: req.params.id})
+                        .then(() => { res.status(204).json({message: 'Delete Post !'})})
+                        .catch(error => res.status(401).json({ error }))
+                });
+            }
+        })
+        .catch( error => {
+            res.status(500).json({ error });
+        })
+    */

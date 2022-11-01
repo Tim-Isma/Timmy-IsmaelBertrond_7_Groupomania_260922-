@@ -9,13 +9,11 @@ import Nav from '@/components/header/Nav';
 import './profileedit.css'
 
 const ProfileEdit = () => {
-    const [user, setUser] = useState([])
- 
+    const [user, setUser] = useState({})
+    const [isLoading, setloading] = useState(true)
+
     const flag = useRef(false)
     let navigate = useNavigate()
-
-    //let pictureUser = user.profilePicture
-    //const {image_profile} = picture
 
 /******************** Récupération des informations de l'utilisateur ********************/
 
@@ -25,6 +23,7 @@ const ProfileEdit = () => {
                 .then(res => {
                     console.log(res.data)
                     setUser(res.data)
+                    setloading(false)
                 })       
                 .catch(err => console.log(err))
         }
@@ -43,7 +42,7 @@ const ProfileEdit = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        userService.updateUser(user._id, user)
+        userService.updateUser(user)
             .then(res => {
                 console.log(res)
                 navigate('/admin/profile')             
@@ -66,44 +65,12 @@ const ProfileEdit = () => {
     }
     
     
-    /******************** Modification de la photo de profile Utilisateur  ************************/
-    /*
-    const onChangeFile = (e) => {
-        console.log('ici')
-        //setImagee(e.target.file[0])
-        const reader = new FileReader()
-        
-        reader.onload = () => {
-            if(reader.readyState === 2) {
-                setPicture({image_profile: reader.result}) 
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
-        setPicture({
-            ...picture,
-            [e.target.name]: e.target.files[0]
-        })
-        
+    if(isLoading){
+        return  <div>Loading...</div>
     }
-    
-    const onSubmit = (e) => {
-        e.preventDefault()
-
-        const formData = new FormData();
-        //formData.append("image_profile", imagee);
-        formData.append("user", user);
-
-        userService.updateUser(user._id, formData)
-            .then(res => {
-                console.log(res)
-                navigate('/admin/profile')
-            })
-            .catch(err => console.log(err))
-    }
-    */
 
     return (
+    
         <div>
             <Header/>
             <div className='profile_container'>

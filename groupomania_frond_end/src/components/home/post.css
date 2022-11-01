@@ -51,7 +51,6 @@
     height: auto;
     margin-bottom: 15px;
     border-radius: 20px;
-    border: dashed 1px #fe2b01;
     object-fit: cover;
 }
 
@@ -87,7 +86,7 @@
     color: #fe2b01;
 }
 
-#file[type='file'] {
+#imagep1[type='file'] {
     display: none;
 }
 

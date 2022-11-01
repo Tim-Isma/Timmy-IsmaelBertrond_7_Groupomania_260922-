@@ -11,7 +11,14 @@ import './auth.css'
 const SignUp = () => {
     let navigate = useNavigate()
 
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState({
+        name:'',
+        firstName:'',
+        pseudo:'',
+        email:'',
+        password:'',
+        city:''
+    })
     const [passwordIsVisible, setPasswordIsVisible] = useState(false)
 
     const onChange = (e) => {
@@ -27,7 +34,7 @@ const SignUp = () => {
         userService.createUser(user)
             .then(res => {
                 console.log(res)
-                navigate('/admin/home')
+                navigate('/admin/profile')
             })
             .catch(err => console.log(err)) 
     }

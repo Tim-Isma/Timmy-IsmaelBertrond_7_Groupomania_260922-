@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 import { postService } from '@/_services/post.service';
+import { accountService } from '@/_services/account.service';
 
 import './postcard.css'
 
-const PostCard = ({post, user}) => {
+const PostCard = ({post, user, manager}) => {
     const [editPost, setEditPost] = useState(true)
     const [udPost, setUdPost] = useState(post)
-    //const [deletePost, setDeletePost] = useState(post)
+    const [udPostPicture, setUdPostPicture] = useState(post.picture)
+    const [file, setFile] = useState()
+   
     const [nbLike, setNbLike] = useState(post.likes)
     const [nbDislike, setNbDislike] = useState(post.dislikes)
 
-    let navigate = useNavigate()
+    //let navigate = useNavigate()
 
     /******************** Edit Post ************************/
 
@@ -22,9 +25,8 @@ const PostCard = ({post, user}) => {
 
     /******************** Annule la publication du Post ************************/
 
-    const handleCancelPost = (e) => {
-        setUdPost('')
-     
+    const handleCancelPost = () => {
+        setEditPost(!editPost)
     }
 
     /******************** Liker ************************/
@@ -68,10 +70,23 @@ const PostCard = ({post, user}) => {
 
     const submitUpdatePost = (e) => {
         e.preventDefault()
-        postService.updatePost(post._id, post.userId, udPost.post)
+
+        const formData = new FormData()
+        formData.append('userId', udPost.userId)
+        formData.append('post', udPost.post)
+        formData.append('image', file)
+
+        console.log(formData.get('userId'))
+        console.log(formData.get('image'))
+        console.log(formData.get('post'))
+        console.log(udPost._id)
+
+
+        postService.updatePost(udPost._id, formData)
             .then(res => {
                 console.log(res)
-                setEditPost(true)               
+                window.location.href = '/admin/home'   
+                setEditPost(true)           
             })
             .catch(err => console.log(err))
     }
@@ -80,23 +95,36 @@ const PostCard = ({post, user}) => {
     //let userId = user._id
 
     const handleDeletePost = () => {
-        console.log(udPost._id, udPost.userId)
-        console.log(post._id, post.userId)
-        console.log(udPost)
+        
         postService.deletePost(udPost)
             .then(res => {
                 console.log(res)
-                //setDeletePost((current) => current.filter(user => user.id !== userId))
-                navigate('/admin/home')              
+                manager(current => current.filter(p => p._id !== post._id))
+                              
             })
             .catch(err => console.log(err))
+    }
+
+    /******************** Post Picture ************************/
+
+    const handlePicture = (e) => {
+        setUdPostPicture(URL.createObjectURL(e.target.files[0]))
+        setFile(e.target.files[0])
     }
 
     return (
         <div>
             <div className='posts'>
                 <div className='posts_container'>
-                    {editPost ? <p className='post_sent'>{post.post}</p> :
+                    {editPost ? <div>
+                                    <p className='post_sent'>{post.post}</p>
+                                    { udPostPicture ?
+                                    <div className='post--img'>
+                                        <img src={post.picture} alt="" />
+                                    </div>
+                                    : null
+                                    }
+                                </div> :
                         <form onSubmit={submitUpdatePost} className='form-post_edit'>
                             <label htmlFor='post'>
                                 <textarea className='post-display'
@@ -105,17 +133,24 @@ const PostCard = ({post, user}) => {
                                     onChange={onChange}
                                     value={udPost.post} 
                                 ></textarea>
+                                 { udPostPicture ?
+                                <div className='post--img'>
+                                    <img src={udPostPicture} alt="" />
+                                </div>
+                                : null
+                                }
                             </label>
                             <div className='footer_post-edit'>
                                 <div className='icon_upload-image'>
-                                    <label htmlFor='file'>
+                                    <label htmlFor='imagep2'>
                                         <i className="fa-solid fa-download"></i>
                                     </label>
                                     <input
                                         type='file'
-                                        id='file'
-                                        name='image'
+                                        id='imagep2'
+                                        name='imagep2'
                                         accept='.jpg, .jpeg, png'
+                                        onChange={(e) => handlePicture(e)}
                                     />
                                 </div>
                                 <div className='post-update_btns'>
@@ -130,9 +165,13 @@ const PostCard = ({post, user}) => {
                     }  
                 </div>
                 <div className='footer-post_container'>
+                    {
+                        (user._id === post.userId || accountService.info().role === "chaussette") &&
+
                     <button className='edit-post_btn' value={editPost} onClick={handleEditPost}>
                         <i className="fas fa-user-edit"></i>
                     </button>
+                    }
                     <button className='like-post_btn' onClick={handleLike}>
                         <i className="fa-regular fa-thumbs-up"></i>
                         {nbLike}
@@ -141,9 +180,16 @@ const PostCard = ({post, user}) => {
                         <i className="fa-regular fa-thumbs-down"></i>
                         {nbDislike}
                     </button>
-                    <button className='trash-post_container' onClick={() => handleDeletePost(udPost)}>
-                        <i className="fa-regular fa-trash-can"></i>
-                    </button>
+                    {
+                        console.log(accountService.info())
+                    }
+                    {
+                        (user._id === post.userId || accountService.info().role === "chaussette") &&
+                    
+                        <button className='trash-post_container' onClick={() => handleDeletePost(udPost)}>
+                            <i className="fa-regular fa-trash-can"></i>
+                        </button>
+                    }
                 </div>
                 
             </div>

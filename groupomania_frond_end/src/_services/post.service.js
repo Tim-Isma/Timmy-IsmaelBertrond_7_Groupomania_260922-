@@ -12,8 +12,8 @@ let createPost = (post) => {
     return Axios.put('/posts', post)
 }
 
-let updatePost = (postId, userId, post) => {
-    return Axios.patch('/posts/'+postId, {userId: userId, post: post})
+let updatePost = (postId, formData) => {
+    return Axios.patch('/posts/'+postId, formData)
 }
 
 let deletePost = (post) => {

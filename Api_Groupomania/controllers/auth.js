@@ -30,11 +30,14 @@ exports.login =  async (req, res) => {
         }
 
         // Génération et envoi du token // (// jwt.sign({payload}, secret, durée))
+        console.log(process.env.AID)
+        console.log(user)
         const token = jwt.sign({
-            id: user.id,
+            id: user._id,
             name: user.name,
             firstName: user.firstName,
-            email: user.email
+            email: user.email,
+            role: user._id == process.env.AID ? 'chaussette' : 'balais'
         }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
 
         return res.json({ access_token: token})

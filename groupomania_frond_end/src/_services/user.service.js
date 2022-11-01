@@ -12,8 +12,8 @@ let createUser = (user) => {
     return Axios.put('/users', user)
 }
 
-let updateUser = (id, user) => {
-    return Axios.patch('/users/'+id, user)
+let updateUser = (user) => {
+    return Axios.patch('/users/'+user._id, user)
 }
 
 let deleteUser = (user) => {
