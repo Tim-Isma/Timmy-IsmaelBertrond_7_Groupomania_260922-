@@ -9,15 +9,14 @@ const storage = multer.diskStorage({
         },
 
         filename: (req, file, callback) => {
-            //const name = req.body.name
             const name = file.originalname  
             callback(null, name + Date.now() + path.extname(file.originalname))
         }
 })
 
 fileFilter = (req, file, callback) => {
-    if ((file.mimetype).includes('image/jpg') ||
-        (file.mimetype).includes('image/png') ||
+    if ((file.mimetype).includes('image/png') ||
+        (file.mimetype).includes('image/jpg') ||
         (file.mimetype).includes('image/jpeg')
        ) { callback (null, true)
     } else {

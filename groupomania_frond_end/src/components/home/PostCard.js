@@ -148,7 +148,7 @@ const PostCard = ({post, user, manager}) => {
                                         type='file'
                                         id='imagep2'
                                         name='imagep2'
-                                        accept='.jpg, .jpeg, png'
+                                        accept='.jpg, .jpeg, .png'
                                         onChange={(e) => handlePicture(e)}
                                     />
                                 </div>

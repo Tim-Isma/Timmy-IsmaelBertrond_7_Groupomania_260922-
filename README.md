@@ -37,7 +37,7 @@ Cloner le projet à partir de https://github.com/Tim-Isma/Timmy-IsmaelBertrond_7
 ## Installation backend
 
 ```
-à partir du dossier clone :
+à partir du dossier cloné :
 
 "cd Api_Groupomania"
 "npm install"
@@ -84,6 +84,6 @@ il faudra tout simplement se connecter avec l'identifiant et le password du comp
 
 ## Contacts
 
-Timmy-Ismaël bertrond - tim.isma@free.fr
+Timmy-Ismaël Bertrond - tim.isma@free.fr
 
 Lien du projet : [https://github.com/Tim-Isma/Timmy-IsmaelBertrond_7_Groupomania_260922-.git](https://github.com/Tim-Isma/Timmy-IsmaelBertrond_7_Groupomania_260922-.git)

@@ -37,18 +37,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    profilePicture: {
-        type: String,
-    },
-    likesProfile: {
-        type: [String]
-    },
-    followers: {
-        type: [String]
-    },
-    following: {
-        type: [String]
-    },
 })
 
 module.exports = mongoose.model('user', userSchema)

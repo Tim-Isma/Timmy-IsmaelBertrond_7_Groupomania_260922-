@@ -99,7 +99,7 @@ const Post = () => {
                         type='file'
                         id='imagep1'
                         name='imagep1'
-                        accept='.jpg, .jpeg, png'
+                        accept='.jpg, .jpeg, .png'
                         onChange={(e) => handlePicture(e)}
                     />
                 </div>
