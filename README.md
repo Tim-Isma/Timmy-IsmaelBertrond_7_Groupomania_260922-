@@ -12,7 +12,7 @@ Contenance du site :
 
 - Création de pages dynamiques pour un réseau social,
 - Utilisation de Javascript, Node.js, JWT, Express, Multer, Axios, Mongodb et React 18,
-- Création de messages, suppression et modification et un système de likes/dislikes.
+- Création, suppression et modification de posts et un système de likes/dislikes.
 
 ### Développer avec
 
