@@ -21,7 +21,7 @@ const ProfileEdit = () => {
         if(flag.current === false) {
             userService.getOneUser()
                 .then(res => {
-                    console.log(res.data)
+                    //console.log(res.data)
                     setUser(res.data)
                     setloading(false)
                 })       
@@ -44,7 +44,7 @@ const ProfileEdit = () => {
         e.preventDefault()
         userService.updateUser(user)
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 navigate('/admin/profile')             
             })
             .catch(err => console.log(err))

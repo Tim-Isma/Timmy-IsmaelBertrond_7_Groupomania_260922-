@@ -28,13 +28,15 @@ const SignUp = () => {
         })
     }
     
+/******************** Création du compte utilisateur  ************************/
+
     const handleRegister = (e) => {
         e.preventDefault();
         console.log(user)
         userService.createUser(user)
             .then(res => {
-                console.log(res)
-                navigate('/admin/profile')
+                //console.log(res)
+                navigate('/admin/home')
             })
             .catch(err => console.log(err)) 
     }

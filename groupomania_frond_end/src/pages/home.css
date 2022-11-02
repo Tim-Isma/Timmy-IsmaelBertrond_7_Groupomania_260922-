@@ -1,5 +1,14 @@
 /***** Home Header *****/
 
+button {
+    font-family: 'Lato';
+}
+
+::placeholder {
+    font-family: 'Lato';
+    font-size: 15px;
+}
+
 .home_container {
     display: flex;
 }
@@ -65,7 +74,7 @@
 
 /******************** Media Query ********************/
 
-@media screen and (min-width: 300px) and (max-width: 880px) {
+@media screen and (min-width: 100px) and (max-width: 880px) {
     
 
     .home_container {

@@ -17,25 +17,25 @@ const PostCard = ({post, user, manager}) => {
 
     //let navigate = useNavigate()
 
-    /******************** Edit Post ************************/
+/******************** Edit Post ************************/
 
     const handleEditPost = () => {
         setEditPost(!editPost)
     };
 
-    /******************** Annule la publication du Post ************************/
+/******************** Annule la publication du Post ************************/
 
     const handleCancelPost = () => {
         setEditPost(!editPost)
     }
 
-    /******************** Liker ************************/
+/******************** Liker ************************/
 
     const handleLike = () => {
         postService.likePost(post._id, user._id)
             .then(res => {
                 console.log(res)
-                if(res.data.message === "You like this post !") {
+                if(res.data.message === "like post !") {
                     setNbLike(current => current+1)
                 }else{
                     setNbLike(current => current-1)
@@ -44,13 +44,13 @@ const PostCard = ({post, user, manager}) => {
             .catch(err => console.log(err))
     };
 
-    /******************** Disliker ************************/
+/******************** Disliker ************************/
 
     const handleDislike = () => {
         postService.dislikePost(post._id, user._id)
             .then(res => {
                 console.log(res)
-                if(res.data.message === "You dislike this post !") {
+                if(res.data.message === "dislike post !") {
                     setNbDislike(current => current+1)
                 }else{
                     setNbDislike(current => current-1)
@@ -59,7 +59,7 @@ const PostCard = ({post, user, manager}) => {
             .catch(err => console.log(err))
     }
 
-    /******************** Modifier le Post ************************/
+/******************** Modifier le Post ************************/
 
     const onChange = (e) => {
         setUdPost({
@@ -85,27 +85,26 @@ const PostCard = ({post, user, manager}) => {
         postService.updatePost(udPost._id, formData)
             .then(res => {
                 console.log(res)
-                window.location.href = '/admin/home'   
+                window.location.href = '/admin/home' 
+                //manager(current => current.filter(p => p._id !== post._id))  
                 setEditPost(true)           
             })
             .catch(err => console.log(err))
     }
 
-    /******************** Supprimer le Post ************************/
-    //let userId = user._id
+/******************** Supprimer le Post ************************/
 
     const handleDeletePost = () => {
         
         postService.deletePost(udPost)
             .then(res => {
                 console.log(res)
-                manager(current => current.filter(p => p._id !== post._id))
-                              
+                manager(current => current.filter(p => p._id !== post._id))              
             })
             .catch(err => console.log(err))
     }
 
-    /******************** Post Picture ************************/
+/******************** Post Picture ************************/
 
     const handlePicture = (e) => {
         setUdPostPicture(URL.createObjectURL(e.target.files[0]))
@@ -127,7 +126,7 @@ const PostCard = ({post, user, manager}) => {
                                 </div> :
                         <form onSubmit={submitUpdatePost} className='form-post_edit'>
                             <label htmlFor='post'>
-                                <textarea className='post-display'
+                                <textarea className='post-u'
                                     type='text'
                                     name='post'
                                     onChange={onChange}
@@ -155,10 +154,10 @@ const PostCard = ({post, user, manager}) => {
                                 </div>
                                 <div className='post-update_btns'>
                                     { udPost ? (
-                                        <button className='cancel-post_btn' onClick={handleCancelPost}>Annuler</button>
+                                        <button className='cancel-postcard_btn' onClick={handleCancelPost}>Annuler</button>
                                     ) : null}
                 
-                                    <button className='update-post_btn'>Modifier</button>
+                                    <button className='update-postcard_btn'>Modifier</button>
                                 </div>
                             </div>
                         </form>

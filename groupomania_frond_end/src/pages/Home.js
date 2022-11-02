@@ -14,7 +14,6 @@ const Home = () => {
     const [user, setUser] = useState([])
     const [posts, setPosts] = useState([])
  
-    //const[ updatePost, setUpdatePost] = useState()
     const flag = useRef(false)
     let navigate = useNavigate()
     
@@ -40,7 +39,6 @@ const Home = () => {
         userService.deleteUser(user)
             .then(res => {
                 //console.log(res)
-                //setUser((current) => current.filter(user => user.id !== userId))
                 navigate('/auth/sign-up')
             })
             .catch(err => console.log(err))
@@ -68,7 +66,7 @@ const Home = () => {
                 <Nav/>
                 <div className='home'>
                     <div className='home_title'>
-                        <h1>Bienvenue {user.firstName} {user.name}</h1>
+                        <h1>Bienvenue {user.firstName}</h1>
                     </div>
                     <div className='delete-btn_container'>
                         <button className='delete-btn' onClick={() => delUser(user)}>

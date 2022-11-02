@@ -4,7 +4,6 @@ import Home from '@/pages/Home';
 import Profile from '@/pages/Profile';
 import ProfileEdit from '@/pages/ProfileEdit';
 import Error from '@/_utils/Error'
-//import ALayout from '@/pages/ALayout';
 
 
 const AdminRouter = () => {
@@ -20,7 +19,5 @@ const AdminRouter = () => {
         </Routes>
     );
 };
-
-//<Route element={<ALayout/>}></Route> // ?????
 
 export default AdminRouter;

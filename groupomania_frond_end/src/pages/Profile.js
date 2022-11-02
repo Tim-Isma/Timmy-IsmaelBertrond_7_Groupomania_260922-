@@ -20,7 +20,7 @@ const Profile = () => {
         if(flag.current === false) {
             userService.getOneUser()
                 .then(res => {
-                    console.log(res.data)
+                    //console.log(res.data)
                     setUser(res.data)
                 })       
                 .catch(err => console.log(err))
@@ -35,8 +35,7 @@ const Profile = () => {
         console.log(user)
         userService.deleteUser(user)
             .then(res => {
-                console.log(res)
-                //setUser((current) => current.filter(user => user.id !== userId))
+                //console.log(res)
                 navigate('/auth/sign-up')
             })
             .catch(err => console.log(err))

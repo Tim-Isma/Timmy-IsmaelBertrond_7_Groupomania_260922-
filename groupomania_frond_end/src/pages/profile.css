@@ -11,7 +11,7 @@
     flex: 3;
 }
 
-.profile_title {
+.profile_title h1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,11 +62,12 @@
     align-items: flex-end;
     width: 500px;
     height: auto;
-    border: solid 1px #4E5166;
-    background-color: #FFD7D7;
     border-radius: 50px 20px 50px 20px ;
     padding: 20px;
     margin-bottom: 50px;
+    border: solid 1px #4E5166;
+    background-color: #FFD7D7;
+    box-shadow: 10px 5px 5px hsla(232, 13%, 35%, 0.5);
 }
 
 .profile-user ul {
@@ -115,7 +116,7 @@
 
 /******************** Media Query ********************/
 
-@media screen and (min-width: 100px) and (max-width: 880px) {
+@media screen and (min-width: 400px) and (max-width: 600px)  {
     
 
     .profile_container {

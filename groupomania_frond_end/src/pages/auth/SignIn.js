@@ -24,11 +24,13 @@ const SignIn = () => {
         })
     }
 
+/******************** Connexion au compte + envoi du token stocké dans le local storage  ************************/
+    
     const handleLogin = (e) => {
         e.preventDefault();
         accountService.login(credentials)
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 accountService.saveToken(res.data.access_token)
                 navigate('/admin/home')
             })

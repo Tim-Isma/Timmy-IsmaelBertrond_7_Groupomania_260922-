@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-//import { useNavigate } from 'react-router-dom';
 
 import { userService } from '@/_services/user.service';
 import { postService } from '@/_services/post.service';
@@ -10,11 +9,9 @@ const Post = () => {
     const [user, setUser] = useState([])
     const [post, setPost] = useState('')
     const [postPicture, setPostPicture] = useState('')
-
     const [file, setFile] = useState()
 
     const flag = useRef(false)
-    //let navigate = useNavigate()
 
 /******************** Récupération des informations de l'utilisateur ********************/
 
@@ -31,7 +28,7 @@ const Post = () => {
         return () => flag.current = true
     }, [])
 
-/******************** Envoi image ********************/
+/******************** Preview & envoi image ********************/
    
 
     const handlePicture = (e) => {
@@ -41,16 +38,13 @@ const Post = () => {
     
 /******************** Post ********************/
 
-    /* Le userId */
-    //let userId = user._id
-
     /* Annule la publication du post */
     const handleCancel = () => {
         setPost('')
         setPostPicture('')
     }
 
-    /* Création et envoie du post */
+    /* Création et envoi du post */
     const handlePost = () => {
         
         if (post || postPicture) {

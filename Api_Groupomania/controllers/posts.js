@@ -46,8 +46,6 @@ exports.createPosts = async (req, res) => {
 
     try {
         // Création du post //
-        //const postObject = req.body
-    
         const postObject = req.file ? {
             ...req.body,
             picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
@@ -76,12 +74,6 @@ exports.updatePosts = async (req, res) => {
     }
 
     try {
-
-        //1 Récup du post
-        //2 isole url image
-        //3 If req.file => alors supprimer l'ancien fs.unlink("/images/post/${nom_image}") // sinon aller au 4
-        //4 Mettre à jour le post
-        
         // Recherche du post et vérification //
         let post = await Post.findOne({ _id: req.params.id })
         
@@ -89,6 +81,7 @@ exports.updatePosts = async (req, res) => {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
         
+        // On isole l'url de l'image //
         let picture = `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`;
 
         if (req.file) {
@@ -140,7 +133,7 @@ exports.deletePosts = (req, res) => {
                 return res.status(401).json({message: 'This action is not permitted'})
             } 
 
-            
+            // Suppression du post + image //
             const filename = post.picture.split('/images/post/') [1]
             fs.unlink(`images/post/${filename}`, () => {
                 Post.deleteOne({ _id: req.params.id })
@@ -186,7 +179,7 @@ exports.like = async (req, res) => {
                 $push: { userLiked: req.body.userId} 
             })
           
-            return res.status(200).json({ message: 'You like this post !' }) 
+            return res.status(200).json({ message: 'like post !' }) 
         }
         // Vérification si l'utilisateur a déjà liker le post //
         if (post.userLiked.includes(req.body.userId)) {
@@ -196,7 +189,7 @@ exports.like = async (req, res) => {
                 $inc: { likes: -1 }, 
                 $pull: { userLiked: req.body.userId }
             })
-            return res.status(200).json({ message: 'You unlike this post !' })
+            return res.status(200).json({ message: 'unlike post !' })
         }      
     } catch (err) {
         const {likes, userLiked} = req.body
@@ -238,7 +231,7 @@ exports.dislike = async (req, res) => {
                 $push: { userDisliked: req.body.userId} 
             })
           
-            return res.status(200).json({ message: 'You dislike this post !' }) 
+            return res.status(200).json({ message: 'dislike post !' }) 
         }
         // Vérification si l'utilisateur a déjà disliker le post //
         if (post.userDisliked.includes(req.body.userId)) {
@@ -248,7 +241,7 @@ exports.dislike = async (req, res) => {
                 $inc: { dislikes: -1 }, 
                 $pull: { userDisliked: req.body.userId }
             })
-            return res.status(200).json({ message: 'You undislike this post !' })
+            return res.status(200).json({ message: 'undislike post !' })
         }      
     } catch (err) {
         const {dislikes, userDisliked} = req.body
@@ -261,21 +254,3 @@ exports.dislike = async (req, res) => {
     }
 }
 
- /*
-    Post.findOne({ _id: req.params.id})
-        .then(post => {
-            if (post === null) {
-                res.status(404).json({ message: 'This user does not exist !' })
-            } else {
-                const filename = post.picture.split('/images/post/') [1]
-                fs.unlink(`images/post/${filename}`, () => {
-                    Post.deleteOne({_id: req.params.id})
-                        .then(() => { res.status(204).json({message: 'Delete Post !'})})
-                        .catch(error => res.status(401).json({ error }))
-                });
-            }
-        })
-        .catch( error => {
-            res.status(500).json({ error });
-        })
-    */

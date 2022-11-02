@@ -49,6 +49,12 @@ Cloner le projet à partir de https://github.com/Tim-Isma/Timmy-IsmaelBertrond_7
 "npm run dev"
 ```
 
+### Utilisation d'une base de données NoSQL "MongoDB"
+
+```
+J'ai choisi comme base de données "MongoDB", c'est une base de données NoSQL et non relationnelle. 
+```
+
 ## Installation frontend
 
 ```
@@ -73,11 +79,7 @@ une page devrait s'ouvrir automatiquement sur votre navigateur.
 
 ```
 Pour accéder au rôle administrateur/modérateur,
-il faudra tout simplement se connecter avec l'identifiant et le password du compte admin, ci-dessous:
-
-email: groupomania@admin.fr
-password: grseadmin
-
+il faudra tout simplement se connecter avec l'identifiant et le password du compte admin.
 ```
 
 ## Contacts
