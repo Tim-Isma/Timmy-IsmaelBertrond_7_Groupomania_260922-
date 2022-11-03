@@ -30,8 +30,6 @@ exports.login =  async (req, res) => {
         }
 
         // Génération et envoi du token // (// jwt.sign({payload}, secret, durée))
-        console.log(process.env.AID)
-        console.log(user)
         const token = jwt.sign({
             id: user._id,
             name: user.name,

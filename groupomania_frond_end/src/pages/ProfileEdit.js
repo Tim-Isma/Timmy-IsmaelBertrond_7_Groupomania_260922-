@@ -58,7 +58,6 @@ const ProfileEdit = () => {
         userService.deleteUser(user)
             .then(res => {
                 console.log(res)
-                //setUser((current) => current.filter(user => user.id !== userId))
                 navigate('/auth/sign-up')
             })
             .catch(err => console.log(err))

@@ -80,6 +80,7 @@ une page devrait s'ouvrir automatiquement sur votre navigateur.
 ```
 Pour accéder au rôle administrateur/modérateur,
 il faudra tout simplement se connecter avec l'identifiant et le password du compte admin.
+(fourni dans le livrable)
 ```
 
 ## Contacts

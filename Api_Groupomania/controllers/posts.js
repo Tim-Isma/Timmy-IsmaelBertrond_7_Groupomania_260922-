@@ -62,7 +62,7 @@ exports.createPosts = async (req, res) => {
 }
 
 exports.updatePosts = async (req, res) => {
-
+    console.log(req.body)
     // Vérification de la présence du paramètre 'id' dans la requête //
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
@@ -76,39 +76,23 @@ exports.updatePosts = async (req, res) => {
     try {
         // Recherche du post et vérification //
         let post = await Post.findOne({ _id: req.params.id })
-        
+
         if (post === null) {
             return res.status(404).json({ message: 'This user does not exist !' })
         }
-        
-        // On isole l'url de l'image //
-        let picture = `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`;
 
-        if (req.file) {
-            const filename = post.picture.split('/images/post/') [1]
-            fs.unlink(`images/post/${filename}`, (err) => {
-                if(err) {
-                    console.log(err)
-                } else {
-                    console.log('delete')
-                }       
-            });
-            picture = `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`;
-        }
-        /*
         const postObject = req.file ? {
             ...req.body,
             picture: `${req.protocol}://${req.get('host')}/images/post/${req.file.filename}`
-        } : {...req.body}
-        */
-        const postObject = req.body
-        
+        } : { ...req.body }
+
+
         // Mise à jour du post // 
         await Post.updateOne(
             { _id: req.params.id },
-            {...postObject, picture: picture },
+            { ...postObject }
         )
-    
+
         return res.json({ message: 'Post Updated !' })
     } catch (err) {
         return res.status(500).json({ message: 'Database Error !', error: err })
@@ -118,12 +102,22 @@ exports.updatePosts = async (req, res) => {
 exports.deletePosts = (req, res) => {
 
      // Vérification de la présence du paramètre 'id' dans la requête //
-    if (!ObjectID.isValid(req.params.id)) {
+     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).json({ message: `ID unknown: ${req.params.id} !` })
     }
 
-    Post.findOne({ _id: req.params.id})
-        .then(post => {
+    // Recup post avec id
+    Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            /*
+            // Empêcher n'importe qu'elle utilisateur de delete une post
+            if (!post) {
+                res.status(404).json({
+                    error: new Error('No such Post!')
+                });
+            }
+            */
+            // Vérification si le post existe
             if (post === null) {
                 return res.status(404).json({ message: 'This post does not exist !' })
             } 
@@ -132,21 +126,25 @@ exports.deletePosts = (req, res) => {
             if(post.userId !== req.user || req.user === process.env.AID){
                 return res.status(401).json({message: 'This action is not permitted'})
             } 
+           
+            
+            if (req.file) {
+                const filename = post.picture.split('/images/post/') [1]
+                fs.unlink(`images/post/${filename}`, () => {
 
-            // Suppression du post + image //
-            const filename = post.picture.split('/images/post/') [1]
-            fs.unlink(`images/post/${filename}`, () => {
+                    Post.deleteOne({ _id: req.params.id })
+                        .then(() => res.status(200).json({ message: "Post supprimé !" }))
+                        .catch((error) => res.status(400).json({ error }));
+                });
+            } else {
                 Post.deleteOne({ _id: req.params.id })
-                    .then(() => res.status(204).json({ message: 'Delete Post !' }))
-                    .catch(err => res.status(500).json({ message: 'Database Error', error: err })) 
-            }) 
-          
-        })
-        .catch( error => {
-            res.status(500).json({ error });
-        })    
-}
+                    .then(() => res.status(200).json({ message: "Post supprimé !" }))
+                    .catch((error) => res.status(400).json({ error }));
+            }
 
+        })
+        .catch((error) => res.status(500).json({ error }));
+}
 
 /////////////////////////////////////////////////////////
 

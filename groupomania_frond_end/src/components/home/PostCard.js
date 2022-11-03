@@ -99,7 +99,8 @@ const PostCard = ({post, user, manager}) => {
         postService.deletePost(udPost)
             .then(res => {
                 console.log(res)
-                manager(current => current.filter(p => p._id !== post._id))              
+                //manager(current => current.filter(p => p._id !== post._id))
+                window.location.href = '/admin/home'               
             })
             .catch(err => console.log(err))
     }

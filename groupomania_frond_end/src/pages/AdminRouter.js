@@ -9,13 +9,13 @@ import Error from '@/_utils/Error'
 const AdminRouter = () => {
     return (
         <Routes>
-                <Route index element={<Home/>} />
+            <Route index element={<Home/>} />
 
-                <Route path='/home' element={<Home/>} />
-                <Route path='/profile' element={<Profile/>} />
-                <Route path='/profile/edit' element={<ProfileEdit/>} />
+            <Route path='/home' element={<Home/>} />
+            <Route path='/profile' element={<Profile/>} />
+            <Route path='/profile/edit' element={<ProfileEdit/>} />
                 
-                <Route path='*' element={<Error/>} />
+            <Route path='*' element={<Error/>} />
         </Routes>
     );
 };
