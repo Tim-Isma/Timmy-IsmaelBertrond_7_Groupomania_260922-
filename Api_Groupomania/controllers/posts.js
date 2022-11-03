@@ -109,24 +109,19 @@ exports.deletePosts = (req, res) => {
     // Recup post avec id
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            /*
+            
+            // Vérification si le post existe
+            if (post === null) {
+                return res.status(404).json({ message: 'This post does not exist !' })
+            } 
+
             // Empêcher n'importe qu'elle utilisateur de delete une post
             if (!post) {
                 res.status(404).json({
                     error: new Error('No such Post!')
                 });
             }
-            */
-            // Vérification si le post existe
-            if (post === null) {
-                return res.status(404).json({ message: 'This post does not exist !' })
-            } 
-
-            // Vérification si action permise (user ou admin)
-            if(post.userId !== req.user || req.user === process.env.AID){
-                return res.status(401).json({message: 'This action is not permitted'})
-            } 
-           
+            
             
             if (req.file) {
                 const filename = post.picture.split('/images/post/') [1]
